@@ -1,13 +1,11 @@
 package com.company;
 
 import javax.swing.*;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DocumentFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import static com.company.GameLogic.*;
 
 public class SinglePlayer {
     static JFrame singlePlayerFrame;
@@ -16,231 +14,27 @@ public class SinglePlayer {
     JButton qButton,wButton,eButton,rButton,tButton,yButton,uButton,iButton,oButton,pButton;
     JButton aButton,sButton,dButton,fButton,gButton,hButton,jButton,kButton,lButton;
     JButton deleteButton,zButton,xButton,cButton,vButton,bButton,nButton,mButton,enterButton;
-    JTextField wordsPanel1textField1,wordsPanel1textField2,wordsPanel1textField3,wordsPanel1textField4,wordsPanel1textField5;
-    JTextField wordsPanel2textField1,wordsPanel2textField2,wordsPanel2textField3,wordsPanel2textField4,wordsPanel2textField5;
-    JTextField wordsPanel3textField1,wordsPanel3textField2,wordsPanel3textField3,wordsPanel3textField4,wordsPanel3textField5;
-    JTextField wordsPanel4textField1,wordsPanel4textField2,wordsPanel4textField3,wordsPanel4textField4,wordsPanel4textField5;
-    JTextField wordsPanel5textField1,wordsPanel5textField2,wordsPanel5textField3,wordsPanel5textField4,wordsPanel5textField5;
-    JTextField wordsPanel6textField1,wordsPanel6textField2,wordsPanel6textField3,wordsPanel6textField4,wordsPanel6textField5;
+    static JTextField wordsPanel1textField1,wordsPanel1textField2,wordsPanel1textField3,wordsPanel1textField4,wordsPanel1textField5;
+    static JTextField wordsPanel2textField1,wordsPanel2textField2,wordsPanel2textField3,wordsPanel2textField4,wordsPanel2textField5;
+    static JTextField wordsPanel3textField1,wordsPanel3textField2,wordsPanel3textField3,wordsPanel3textField4,wordsPanel3textField5;
+    static JTextField wordsPanel4textField1,wordsPanel4textField2,wordsPanel4textField3,wordsPanel4textField4,wordsPanel4textField5;
+    static JTextField wordsPanel5textField1,wordsPanel5textField2,wordsPanel5textField3,wordsPanel5textField4,wordsPanel5textField5;
+    static JTextField wordsPanel6textField1,wordsPanel6textField2,wordsPanel6textField3,wordsPanel6textField4,wordsPanel6textField5;
     Font fontResults = new Font("SansSerif",Font.BOLD, 35);
-    int rowNumber = 1,colNumber=1;
-    String word = "APPLE";
+    static int rowNumber = 1;
+    static int colNumber=1;
+    static String word;
 
-    public void addLetter(String letter){
-        if(rowNumber == 1)
-        {
-            if(colNumber == 1)
-            {
-                wordsPanel1textField1.setText(letter);
-            }else if(colNumber == 2)
-            {
-                wordsPanel1textField2.setText(letter);
-            }
-            else if(colNumber == 3)
-            {
-                wordsPanel1textField3.setText(letter);
-            }
-            else if(colNumber == 4)
-            {
-                wordsPanel1textField4.setText(letter);
-            }
-            else
-            {
-                wordsPanel1textField5.setText(letter);
-            }
-        }
-        else if(rowNumber == 2)
-        {
-            if(colNumber == 1)
-            {
-                wordsPanel2textField1.setText(letter);
-            }else if(colNumber == 2)
-            {
-                wordsPanel2textField2.setText(letter);
-            }
-            else if(colNumber == 3)
-            {
-                wordsPanel2textField3.setText(letter);
-            }
-            else if(colNumber == 4)
-            {
-                wordsPanel2textField4.setText(letter);
-            }
-            else
-            {
-                wordsPanel2textField5.setText(letter);
-            }
-        }
-        else if(rowNumber == 3)
-        {
-            if(colNumber == 1)
-            {
-                wordsPanel3textField1.setText(letter);
-            }else if(colNumber == 2)
-            {
-                wordsPanel3textField2.setText(letter);
-            }
-            else if(colNumber == 3)
-            {
-                wordsPanel3textField3.setText(letter);
-            }
-            else if(colNumber == 4)
-            {
-                wordsPanel3textField4.setText(letter);
-            }
-            else
-            {
-                wordsPanel3textField5.setText(letter);
-            }
-        }
-        else if(rowNumber == 4)
-        {
-            if(colNumber == 1)
-            {
-                wordsPanel4textField1.setText(letter);
-            }else if(colNumber == 2)
-            {
-                wordsPanel4textField2.setText(letter);
-            }
-            else if(colNumber == 3)
-            {
-                wordsPanel4textField3.setText(letter);
-            }
-            else if(colNumber == 4)
-            {
-                wordsPanel4textField4.setText(letter);
-            }
-            else
-            {
-                wordsPanel4textField5.setText(letter);
-            }
-        }
-        else if(rowNumber == 5)
-        {
-            if(colNumber == 1)
-            {
-                wordsPanel5textField1.setText(letter);
-            }else if(colNumber == 2)
-            {
-                wordsPanel5textField2.setText(letter);
-            }
-            else if(colNumber == 3)
-            {
-                wordsPanel5textField3.setText(letter);
-            }
-            else if(colNumber == 4)
-            {
-                wordsPanel5textField4.setText(letter);
-            }
-            else
-            {
-                wordsPanel5textField5.setText(letter);
-            }
-        }
-        else
-        {
-            if(colNumber == 1)
-            {
-                wordsPanel6textField1.setText(letter);
-            }else if(colNumber == 2)
-            {
-                wordsPanel6textField2.setText(letter);
-            }
-            else if(colNumber == 3)
-            {
-                wordsPanel6textField3.setText(letter);
-            }
-            else if(colNumber == 4)
-            {
-                wordsPanel6textField4.setText(letter);
-            }
-            else
-            {
-                wordsPanel6textField5.setText(letter);
-            }
-        }
-    }
-    public int checkWord(){
-        int result =0;
-        String s1,s2,s3,s4,s5,all;
-        if(rowNumber == 1)
-        {
-            s1 = wordsPanel1textField1.getText();
-            s2 = wordsPanel1textField2.getText();
-            s3 = wordsPanel1textField3.getText();
-            s4 = wordsPanel1textField4.getText();
-            s5 = wordsPanel1textField5.getText();
-            all = s1+s2+s3+s4+s5;
-            if (all.equals(word))
-                result=1;
-        }
-        else if(rowNumber == 2)
-        {
-            s1 = wordsPanel2textField1.getText();
-            s2 = wordsPanel2textField2.getText();
-            s3 = wordsPanel2textField3.getText();
-            s4 = wordsPanel2textField4.getText();
-            s5 = wordsPanel2textField5.getText();
-            all = s1+s2+s3+s4+s5;
-            if (all.equals(word))
-                result=1;
-        }
-        else if(rowNumber == 3)
-        {
-            s1 = wordsPanel3textField1.getText();
-            s2 = wordsPanel3textField2.getText();
-            s3 = wordsPanel3textField3.getText();
-            s4 = wordsPanel3textField4.getText();
-            s5 = wordsPanel3textField5.getText();
-            all = s1+s2+s3+s4+s5;
-            if (all.equals(word))
-                result=1;
-        }
-        else if(rowNumber == 4)
-        {
-            s1 = wordsPanel4textField1.getText();
-            s2 = wordsPanel4textField2.getText();
-            s3 = wordsPanel4textField3.getText();
-            s4 = wordsPanel4textField4.getText();
-            s5 = wordsPanel4textField5.getText();
-            all = s1+s2+s3+s4+s5;
-            if (all.equals(word))
-                result=1;
-        }
-        else if(rowNumber == 5)
-        {
-            s1 = wordsPanel5textField1.getText();
-            s2 = wordsPanel5textField2.getText();
-            s3 = wordsPanel5textField3.getText();
-            s4 = wordsPanel5textField4.getText();
-            s5 = wordsPanel5textField5.getText();
-            all = s1+s2+s3+s4+s5;
-            if (all.equals(word))
-                result=1;
-        }
-        else
-        {
-            s1 = wordsPanel6textField1.getText();
-            s2 = wordsPanel6textField2.getText();
-            s3 = wordsPanel6textField3.getText();
-            s4 = wordsPanel6textField4.getText();
-            s5 = wordsPanel6textField5.getText();
-            all = s1+s2+s3+s4+s5;
-            if (all.equals(word))
-                result=1;
-        }
-        return result;
-    }
 
     SinglePlayer(){
+        word = readFile();
+        System.out.println(word);
         singlePlayerFrame = new JFrame("Wordle");
         singlePlayerFrame.setSize(960, 960);
 
         singlePlayerTitle = new JLabel("Wordle");
         singlePlayerTitle.setBounds(400, 0, 400, 60);
         singlePlayerTitle.setFont(new Font("Serif", Font.PLAIN, 40));
-
-
 
         JPanel wordsPanels = new JPanel();
         wordsPanels.setLayout(new GridLayout(6,1,10,10));
@@ -454,7 +248,7 @@ public class SinglePlayer {
 
         JPanel keyboardPanel = new JPanel();
         keyboardPanel.setLayout(new GridLayout(3,1,10,10));
-        keyboardPanel.setBounds(175,790,600,100);
+        keyboardPanel.setBounds(175,500,600,100);
         keyboardPanel.setBackground(Color.CYAN);
         JPanel keyboardPanel1 = new JPanel();
         keyboardPanel1.setLayout(new GridLayout(1,10,10,10));
@@ -748,12 +542,7 @@ public class SinglePlayer {
         enterButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (checkWord()==1){
-                    System.out.println("Zwycięstwo");
-                }else {
-                    rowNumber += 1;
-                    colNumber = 1;
-                }
+                checkVictory();
             }
         });
 
@@ -791,7 +580,6 @@ public class SinglePlayer {
         keyboardPanel.add(keyboardPanel1);
         keyboardPanel.add(keyboardPanel2);
         keyboardPanel.add(keyboardPanel3);
-
 
         returnButton = new JButton("Return");
         returnButton.setBounds(25, 800, 100, 80);

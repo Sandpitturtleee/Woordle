@@ -11,20 +11,20 @@ public class MultiPlayer {
     JButton returnButton;
     MultiPlayer(){
         multiPlayerFrame = new JFrame("Wordle");
-        multiPlayerFrame.setSize(960, 1080);
+        multiPlayerFrame.setSize(960, 800);
 
         multiPlayerTitle = new JLabel("Wordle");
         multiPlayerTitle.setBounds(400, 30, 400, 60);
         multiPlayerTitle.setFont(new Font("Serif", Font.PLAIN, 40));
 
         returnButton = new JButton("Return");
-        returnButton.setBounds(360, 600, 200, 80);
+        returnButton.setBounds(360, 650, 200, 80);
 
         returnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 multiPlayerFrame.setVisible(false);
-                MainMenu.FrameSetVisibleTrue();
+                MainMenu.MainMenuFrameSetVisibleTrue();
             }
         });
 

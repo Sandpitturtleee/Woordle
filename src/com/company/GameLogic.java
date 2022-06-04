@@ -2,19 +2,14 @@ package com.company;
 
 
 import java.awt.*;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Objects;
 import java.util.Scanner;
 
 class GameLogic extends SinglePlayer{
-    static int exist = 0;
-    static int nextLetter = 0;
     static String s1,s2,s3,s4,s5,all;
-    static int s1check,s2check,s3check,s4check,s5check;
-
     static String readFile(){
         ArrayList<String> words = new ArrayList<>();
 
@@ -29,61 +24,32 @@ class GameLogic extends SinglePlayer{
         String word = words.get(index);
         return word;
     }
-    static void changeString(int colNumber){
-        switch (colNumber) {
-            case 1:
-                word = "0" + word.substring(1,5);
-                break;
-            case 2:
-                word = word.substring(0,1)+ "0" + word.substring(2,5);
-                break;
-            case 3:
-                word = word.substring(0,2)+ "0" + word.substring(3,5);
-                break;
-            case 4:
-                word = word.substring(0,3)+ "0" + word.substring(4,5);
-                break;
-            default:
-                word = word.substring(0,4)+ "0";
-        }
-    }
 
     static void checkVictory(){
         if (checkWord()==1){
             System.out.println("Zwycięstwo");
             checkLetter();
+            //VictoryFrameSetVisibleTrue();
+            //singlePlayerFrame.dispose();
+            resultTextField.setVisible(true);
+            resultTextField.setText("Victory!!!");
+            rowNumber =1;
+            colNumber =1;
         }
         else {
             checkLetter();
-            if(checkWord()==0 && rowNumber==6){
+            if (checkWord() == 0 && rowNumber == 6) {
                 System.out.println("Porażka");
+                //LossFrameSetVisibleTrue();
+                //singlePlayerFrame.dispose();
+                resultTextField.setVisible(true);
+                resultTextField.setText("You lost: "+word);
+                rowNumber = 1;
+                colNumber = 1;
             }
             rowNumber += 1;
             colNumber = 1;
         }
-    }
-    static int isSubstring(String s1, String s2){
-        int M = s1.length();
-        int N = s2.length();
-
-        /* A loop to slide pat[] one by one */
-        for (int i = 0; i <= N - M; i++) {
-            int j;
- 
-            /* For current index i, check for
-            pattern match */
-            for (j = 0; j < M; j++)
-                if (s2.charAt(i + j)
-                        != s1.charAt(j))
-                    break;
-
-            if (j == M) {
-                i = i + nextLetter;
-                return i;
-            }
-        }
-        nextLetter = 0;
-        return -1;
     }
     static void addLetter(String letter) {
         switch (rowNumber) {
@@ -198,7 +164,6 @@ class GameLogic extends SinglePlayer{
     }
     static int checkWord(){
         int result =0;
-        String s1,s2,s3,s4,s5,all;
         switch(rowNumber) {
             case 1:
                 s1 = wordsPanel1textField1.getText();
@@ -207,7 +172,7 @@ class GameLogic extends SinglePlayer{
                 s4 = wordsPanel1textField4.getText();
                 s5 = wordsPanel1textField5.getText();
                 all = s1+s2+s3+s4+s5;
-                if (all.equals(wordOryginal))
+                if (all.equals(word))
                     result=1;
                 break;
             case 2:
@@ -217,7 +182,7 @@ class GameLogic extends SinglePlayer{
                 s4 = wordsPanel2textField4.getText();
                 s5 = wordsPanel2textField5.getText();
                 all = s1+s2+s3+s4+s5;
-                if (all.equals(wordOryginal))
+                if (all.equals(word))
                     result=1;
                 break;
             case 3:
@@ -227,7 +192,7 @@ class GameLogic extends SinglePlayer{
                 s4 = wordsPanel3textField4.getText();
                 s5 = wordsPanel3textField5.getText();
                 all = s1+s2+s3+s4+s5;
-                if (all.equals(wordOryginal))
+                if (all.equals(word))
                     result=1;
                 break;
             case 4:
@@ -237,7 +202,7 @@ class GameLogic extends SinglePlayer{
                 s4 = wordsPanel4textField4.getText();
                 s5 = wordsPanel4textField5.getText();
                 all = s1+s2+s3+s4+s5;
-                if (all.equals(wordOryginal))
+                if (all.equals(word))
                     result=1;
                 break;
             case 5:
@@ -247,7 +212,7 @@ class GameLogic extends SinglePlayer{
                 s4 = wordsPanel5textField4.getText();
                 s5 = wordsPanel5textField5.getText();
                 all = s1+s2+s3+s4+s5;
-                if (all.equals(wordOryginal))
+                if (all.equals(word))
                     result=1;
                 break;
             default:
@@ -257,57 +222,14 @@ class GameLogic extends SinglePlayer{
                 s4 = wordsPanel6textField4.getText();
                 s5 = wordsPanel6textField5.getText();
                 all = s1+s2+s3+s4+s5;
-                if (all.equals(wordOryginal))
+                if (all.equals(word))
                     result=1;
                 else
                     result=0;
         }
         return result;
     }
-    static void checkRepeat(){
-        s1check = isSubstring(s1, wordOryginal);
-        s2check = isSubstring(s2, wordOryginal);
-        s3check = isSubstring(s3, wordOryginal);
-        s4check = isSubstring(s4, wordOryginal);
-        s5check = isSubstring(s5, wordOryginal);
-        if (s2check == s1check){
-            nextLetter+=1;
-            s2check = isSubstring(s2,wordOryginal);
-        }
-        if (s3check == s1check){
-            nextLetter+=2;
-            s3check = isSubstring(s3,wordOryginal);
-        }else if (s3check == s2check){
-            nextLetter+=1;
-            s3check = isSubstring(s3,wordOryginal);
-        }
-        if (s4check == s1check){
-            nextLetter+=3;
-            s4check = isSubstring(s4,wordOryginal);
-        }else if(s4check == s2check){
-            nextLetter+=2;
-            s4check = isSubstring(s4,wordOryginal);
-        }else if(s4check == s3check){
-            nextLetter+=1;
-            s4check = isSubstring(s4,wordOryginal);
-        }
-        if (s5check == s1check){
-            nextLetter+=4;
-            s5check = isSubstring(s5,wordOryginal);
-        }else if(s5check == s2check){
-            nextLetter+=3;
-            s5check = isSubstring(s5,wordOryginal);
-        }else if(s5check == s3check){
-            nextLetter+=2;
-            s5check = isSubstring(s5,wordOryginal);
-        }else if(s5check == s4check){
-            nextLetter+=1;
-            s5check = isSubstring(s5,wordOryginal);
-        }
-    }
     static void checkLetter(){
-        int s1number = 0, s2number = 1,s3number = 2, s4number = 3,s5number = 4;
-        String word1;
         switch (rowNumber) {
             case 1 -> {
                 s1 = wordsPanel1textField1.getText();
@@ -315,57 +237,55 @@ class GameLogic extends SinglePlayer{
                 s3 = wordsPanel1textField3.getText();
                 s4 = wordsPanel1textField4.getText();
                 s5 = wordsPanel1textField5.getText();
-                s1check = isSubstring(s1, wordOryginal);
-                s2check = isSubstring(s2, wordOryginal);
-                s3check = isSubstring(s3, wordOryginal);
-                s4check = isSubstring(s4, wordOryginal);
-                s5check = isSubstring(s5, wordOryginal);
-                //checkRepeat();
-                System.out.println(s1check);
-                System.out.println(s2check);
-                System.out.println(s3check);
-                System.out.println(s4check);
-                System.out.println(s5check + "\n");
-                if (s1check == -1) {
-                    wordsPanel1textField1.setBackground(Color.GRAY);
-                } else if (s1check == s1number) {
+                if (Objects.equals(s1, wordLetter1)||Objects.equals(s1, "0")) {
                     wordsPanel1textField1.setBackground(Color.GREEN);
-                    changeString(1);
+                    wordLetter1 = "0";
                 } else {
-                    wordsPanel1textField1.setBackground(Color.yellow);
+                    if (Objects.equals(s1, wordLetter2) || Objects.equals(s1, wordLetter3) || Objects.equals(s1, wordLetter4) || Objects.equals(s1, wordLetter5)){
+                        wordsPanel1textField1.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel1textField1.setBackground(Color.GRAY);
+                    }
                 }
-                if (s2check == -1) {
-                    wordsPanel1textField2.setBackground(Color.GRAY);
-                } else if (s2check == s2number) {
+                if (Objects.equals(s2, wordLetter2)||Objects.equals(s2, "0")) {
                     wordsPanel1textField2.setBackground(Color.GREEN);
-                    changeString(2);
+                    wordLetter2 = "0";
                 } else {
-                    wordsPanel1textField2.setBackground(Color.yellow);
+                    if (Objects.equals(s2, wordLetter1) || Objects.equals(s2, wordLetter3) || Objects.equals(s2, wordLetter4) || Objects.equals(s2, wordLetter5)){
+                        wordsPanel1textField2.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel1textField2.setBackground(Color.GRAY);
+                    }
                 }
-                if (s3check == -1) {
-                    wordsPanel1textField3.setBackground(Color.GRAY);
-                } else if (s3check == s3number) {
+                if (Objects.equals(s3, wordLetter3)||Objects.equals(s3, "0")) {
                     wordsPanel1textField3.setBackground(Color.GREEN);
-                    changeString(3);
+                    wordLetter3 = "0";
                 } else {
-                    wordsPanel1textField3.setBackground(Color.yellow);
+                    if (Objects.equals(s3, wordLetter2) || Objects.equals(s3, wordLetter1) || Objects.equals(s3, wordLetter4) || Objects.equals(s3, wordLetter5)){
+                        wordsPanel1textField3.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel1textField3.setBackground(Color.GRAY);
+                    }
                 }
-                if (s4check == -1) {
-                    wordsPanel1textField4.setBackground(Color.GRAY);
-                } else if (s4check == s4number) {
+                if (Objects.equals(s4, wordLetter4)||Objects.equals(s4, "0")) {
                     wordsPanel1textField4.setBackground(Color.GREEN);
-                    changeString(4);
+                    wordLetter4 = "0";
                 } else {
-                    wordsPanel1textField4.setBackground(Color.yellow);
+                    if (Objects.equals(s4, wordLetter2) || Objects.equals(s4, wordLetter3) || Objects.equals(s4, wordLetter1) || Objects.equals(s4, wordLetter5)){
+                        wordsPanel1textField4.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel1textField4.setBackground(Color.GRAY);
+                    }
                 }
-                if (s5check == -1) {
-                    wordsPanel1textField5.setBackground(Color.GRAY);
-                } else if (s5check == s5number) {
+                if (Objects.equals(s5, wordLetter5)||Objects.equals(s5, "0")) {
                     wordsPanel1textField5.setBackground(Color.GREEN);
-                    changeString(5);
-                    System.out.println(word);
+                    wordLetter5 = "0";
                 } else {
-                    wordsPanel1textField5.setBackground(Color.yellow);
+                    if (Objects.equals(s5, wordLetter2) || Objects.equals(s5, wordLetter3) || Objects.equals(s5, wordLetter4) || Objects.equals(s5, wordLetter1)){
+                        wordsPanel1textField5.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel1textField5.setBackground(Color.GRAY);
+                    }
                 }
             }
             case 2 -> {
@@ -374,57 +294,55 @@ class GameLogic extends SinglePlayer{
                 s3 = wordsPanel2textField3.getText();
                 s4 = wordsPanel2textField4.getText();
                 s5 = wordsPanel2textField5.getText();
-                s1check = isSubstring(s1, wordOryginal);
-                s2check = isSubstring(s2, wordOryginal);
-                s3check = isSubstring(s3, wordOryginal);
-                s4check = isSubstring(s4, wordOryginal);
-                s5check = isSubstring(s5, wordOryginal);
-                //checkRepeat();
-                System.out.println(s1check);
-                System.out.println(s2check);
-                System.out.println(s3check);
-                System.out.println(s4check);
-                System.out.println(s5check);
-                if (s1check == -1) {
-                    wordsPanel2textField1.setBackground(Color.GRAY);
-                } else if (s1check == s1number) {
+                if (Objects.equals(s1, wordLetter1)||Objects.equals(wordLetter1, "0")) {
                     wordsPanel2textField1.setBackground(Color.GREEN);
-                    changeString(1);
+                    wordLetter1 = "0";
                 } else {
-                    wordsPanel2textField1.setBackground(Color.yellow);
+                    if (Objects.equals(s1, wordLetter2) || Objects.equals(s1, wordLetter3) || Objects.equals(s1, wordLetter4) || Objects.equals(s1, wordLetter5)){
+                        wordsPanel2textField1.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel2textField1.setBackground(Color.GRAY);
+                    }
                 }
-                if (s2check == -1) {
-                    wordsPanel2textField2.setBackground(Color.GRAY);
-                } else if (s2check == s2number) {
+                if (Objects.equals(s2, wordLetter2)||Objects.equals(wordLetter2, "0")) {
                     wordsPanel2textField2.setBackground(Color.GREEN);
-                    changeString(2);
+                    wordLetter2 = "0";
                 } else {
-                    wordsPanel2textField2.setBackground(Color.yellow);
+                    if (Objects.equals(s2, wordLetter1) || Objects.equals(s2, wordLetter3) || Objects.equals(s2, wordLetter4) || Objects.equals(s2, wordLetter5)){
+                        wordsPanel2textField2.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel2textField2.setBackground(Color.GRAY);
+                    }
                 }
-                if (s3check == -1) {
-                    wordsPanel2textField3.setBackground(Color.GRAY);
-                } else if (s3check == s3number) {
+                if (Objects.equals(s3, wordLetter3)||Objects.equals(wordLetter3, "0")) {
                     wordsPanel2textField3.setBackground(Color.GREEN);
-                    changeString(3);
+                    wordLetter3 = "0";
                 } else {
-                    wordsPanel2textField3.setBackground(Color.yellow);
+                    if (Objects.equals(s3, wordLetter2) || Objects.equals(s3, wordLetter1) || Objects.equals(s3, wordLetter4) || Objects.equals(s3, wordLetter5)){
+                        wordsPanel2textField3.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel2textField3.setBackground(Color.GRAY);
+                    }
                 }
-                if (s4check == -1) {
-                    wordsPanel2textField4.setBackground(Color.GRAY);
-                } else if (s4check == s4number) {
+                if (Objects.equals(s4, wordLetter4)||Objects.equals(wordLetter4, "0")) {
                     wordsPanel2textField4.setBackground(Color.GREEN);
-                    changeString(4);
+                    wordLetter4 = "0";
                 } else {
-                    wordsPanel2textField4.setBackground(Color.yellow);
+                    if (Objects.equals(s4, wordLetter2) || Objects.equals(s4, wordLetter3) || Objects.equals(s4, wordLetter1) || Objects.equals(s4, wordLetter5)){
+                        wordsPanel2textField4.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel2textField4.setBackground(Color.GRAY);
+                    }
                 }
-                if (s5check == -1) {
-                    wordsPanel2textField5.setBackground(Color.GRAY);
-                } else if (s5check == s5number) {
+                if (Objects.equals(s5, wordLetter5)||Objects.equals(wordLetter5, "0")) {
                     wordsPanel2textField5.setBackground(Color.GREEN);
-                    changeString(5);
-                    System.out.println(word);
+                    wordLetter5 = "0";
                 } else {
-                    wordsPanel2textField5.setBackground(Color.yellow);
+                    if (Objects.equals(s5, wordLetter2) || Objects.equals(s5, wordLetter3) || Objects.equals(s5, wordLetter4) || Objects.equals(s5, wordLetter1)){
+                        wordsPanel2textField5.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel2textField5.setBackground(Color.GRAY);
+                    }
                 }
             }
             case 3 -> {
@@ -433,57 +351,55 @@ class GameLogic extends SinglePlayer{
                 s3 = wordsPanel3textField3.getText();
                 s4 = wordsPanel3textField4.getText();
                 s5 = wordsPanel3textField5.getText();
-                s1check = isSubstring(s1, wordOryginal);
-                s2check = isSubstring(s2, wordOryginal);
-                s3check = isSubstring(s3, wordOryginal);
-                s4check = isSubstring(s4, wordOryginal);
-                s5check = isSubstring(s5, wordOryginal);
-                //checkRepeat();
-                System.out.println(s1check);
-                System.out.println(s2check);
-                System.out.println(s3check);
-                System.out.println(s4check);
-                System.out.println(s5check + "\n");
-                if (s1check == -1) {
-                    wordsPanel3textField1.setBackground(Color.GRAY);
-                } else if (s1check == s1number) {
+                if (Objects.equals(s1, wordLetter1)||Objects.equals(wordLetter1, "0")) {
                     wordsPanel3textField1.setBackground(Color.GREEN);
-                    changeString(1);
+                    wordLetter1 = "0";
                 } else {
-                    wordsPanel3textField1.setBackground(Color.yellow);
+                    if (Objects.equals(s1, wordLetter2) || Objects.equals(s1, wordLetter3) || Objects.equals(s1, wordLetter4) || Objects.equals(s1, wordLetter5)){
+                        wordsPanel3textField1.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel3textField1.setBackground(Color.GRAY);
+                    }
                 }
-                if (s2check == -1) {
-                    wordsPanel3textField2.setBackground(Color.GRAY);
-                } else if (s2check == s2number) {
+                if (Objects.equals(s2, wordLetter2)||Objects.equals(wordLetter2, "0")) {
                     wordsPanel3textField2.setBackground(Color.GREEN);
-                    changeString(2);
+                    wordLetter2 = "0";
                 } else {
-                    wordsPanel3textField2.setBackground(Color.yellow);
+                    if (Objects.equals(s2, wordLetter1) || Objects.equals(s2, wordLetter3) || Objects.equals(s2, wordLetter4) || Objects.equals(s2, wordLetter5)){
+                        wordsPanel3textField2.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel3textField2.setBackground(Color.GRAY);
+                    }
                 }
-                if (s3check == -1) {
-                    wordsPanel3textField3.setBackground(Color.GRAY);
-                } else if (s3check == s3number) {
+                if (Objects.equals(s3, wordLetter3)||Objects.equals(wordLetter3, "0")) {
                     wordsPanel3textField3.setBackground(Color.GREEN);
-                    changeString(3);
+                    wordLetter3 = "0";
                 } else {
-                    wordsPanel3textField3.setBackground(Color.yellow);
+                    if (Objects.equals(s3, wordLetter2) || Objects.equals(s3, wordLetter1) || Objects.equals(s3, wordLetter4) || Objects.equals(s3, wordLetter5)){
+                        wordsPanel3textField3.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel3textField3.setBackground(Color.GRAY);
+                    }
                 }
-                if (s4check == -1) {
-                    wordsPanel3textField4.setBackground(Color.GRAY);
-                } else if (s4check == s4number) {
+                if (Objects.equals(s4, wordLetter4)||Objects.equals(wordLetter4, "0")) {
                     wordsPanel3textField4.setBackground(Color.GREEN);
-                    changeString(4);
+                    wordLetter4 = "0";
                 } else {
-                    wordsPanel3textField4.setBackground(Color.yellow);
+                    if (Objects.equals(s4, wordLetter2) || Objects.equals(s4, wordLetter3) || Objects.equals(s4, wordLetter1) || Objects.equals(s4, wordLetter5)){
+                        wordsPanel3textField4.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel3textField4.setBackground(Color.GRAY);
+                    }
                 }
-                if (s5check == -1) {
-                    wordsPanel3textField5.setBackground(Color.GRAY);
-                } else if (s5check == s5number) {
+                if (Objects.equals(s5, wordLetter5)||Objects.equals(wordLetter5, "0")) {
                     wordsPanel3textField5.setBackground(Color.GREEN);
-                    changeString(5);
-                    System.out.println(word);
+                    wordLetter5 = "0";
                 } else {
-                    wordsPanel3textField5.setBackground(Color.yellow);
+                    if (Objects.equals(s5, wordLetter2) || Objects.equals(s5, wordLetter3) || Objects.equals(s5, wordLetter4) || Objects.equals(s5, wordLetter1)){
+                        wordsPanel3textField5.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel3textField5.setBackground(Color.GRAY);
+                    }
                 }
             }
             case 4 -> {
@@ -492,57 +408,55 @@ class GameLogic extends SinglePlayer{
                 s3 = wordsPanel4textField3.getText();
                 s4 = wordsPanel4textField4.getText();
                 s5 = wordsPanel4textField5.getText();
-                s1check = isSubstring(s1, wordOryginal);
-                s2check = isSubstring(s2, wordOryginal);
-                s3check = isSubstring(s3, wordOryginal);
-                s4check = isSubstring(s4, wordOryginal);
-                s5check = isSubstring(s5, wordOryginal);
-                //checkRepeat();
-                System.out.println(s1check);
-                System.out.println(s2check);
-                System.out.println(s3check);
-                System.out.println(s4check);
-                System.out.println(s5check + "\n");
-                if (s1check == -1) {
-                    wordsPanel4textField1.setBackground(Color.GRAY);
-                } else if (s1check == s1number) {
+                if (Objects.equals(s1, wordLetter1)||Objects.equals(wordLetter1, "0")) {
                     wordsPanel4textField1.setBackground(Color.GREEN);
-                    changeString(1);
+                    wordLetter1 = "0";
                 } else {
-                    wordsPanel4textField1.setBackground(Color.yellow);
+                    if (Objects.equals(s1, wordLetter2) || Objects.equals(s1, wordLetter3) || Objects.equals(s1, wordLetter4) || Objects.equals(s1, wordLetter5)){
+                        wordsPanel4textField1.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel4textField1.setBackground(Color.GRAY);
+                    }
                 }
-                if (s2check == -1) {
-                    wordsPanel4textField2.setBackground(Color.GRAY);
-                } else if (s2check == s2number) {
+                if (Objects.equals(s2, wordLetter2)||Objects.equals(wordLetter2, "0")) {
                     wordsPanel4textField2.setBackground(Color.GREEN);
-                    changeString(2);
+                    wordLetter2 = "0";
                 } else {
-                    wordsPanel4textField2.setBackground(Color.yellow);
+                    if (Objects.equals(s2, wordLetter1) || Objects.equals(s2, wordLetter3) || Objects.equals(s2, wordLetter4) || Objects.equals(s2, wordLetter5)){
+                        wordsPanel4textField2.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel4textField2.setBackground(Color.GRAY);
+                    }
                 }
-                if (s3check == -1) {
-                    wordsPanel4textField3.setBackground(Color.GRAY);
-                } else if (s3check == s3number) {
+                if (Objects.equals(s3, wordLetter3)||Objects.equals(wordLetter3, "0")) {
                     wordsPanel4textField3.setBackground(Color.GREEN);
-                    changeString(3);
+                    wordLetter3 = "0";
                 } else {
-                    wordsPanel4textField3.setBackground(Color.yellow);
+                    if (Objects.equals(s3, wordLetter2) || Objects.equals(s3, wordLetter1) || Objects.equals(s3, wordLetter4) || Objects.equals(s3, wordLetter5)){
+                        wordsPanel4textField3.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel4textField3.setBackground(Color.GRAY);
+                    }
                 }
-                if (s4check == -1) {
-                    wordsPanel4textField4.setBackground(Color.GRAY);
-                } else if (s4check == s4number) {
+                if (Objects.equals(s4, wordLetter4)||Objects.equals(wordLetter4, "0")) {
                     wordsPanel4textField4.setBackground(Color.GREEN);
-                    changeString(4);
+                    wordLetter4 = "0";
                 } else {
-                    wordsPanel4textField4.setBackground(Color.yellow);
+                    if (Objects.equals(s4, wordLetter2) || Objects.equals(s4, wordLetter3) || Objects.equals(s4, wordLetter1) || Objects.equals(s4, wordLetter5)){
+                        wordsPanel4textField4.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel4textField4.setBackground(Color.GRAY);
+                    }
                 }
-                if (s5check == -1) {
-                    wordsPanel4textField5.setBackground(Color.GRAY);
-                } else if (s5check == s5number) {
+                if (Objects.equals(s5, wordLetter5)||Objects.equals(wordLetter5, "0")) {
                     wordsPanel4textField5.setBackground(Color.GREEN);
-                    changeString(5);
-                    System.out.println(word);
+                    wordLetter5 = "0";
                 } else {
-                    wordsPanel4textField5.setBackground(Color.yellow);
+                    if (Objects.equals(s5, wordLetter2) || Objects.equals(s5, wordLetter3) || Objects.equals(s5, wordLetter4) || Objects.equals(s5, wordLetter1)){
+                        wordsPanel4textField5.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel4textField5.setBackground(Color.GRAY);
+                    }
                 }
             }
             case 5 -> {
@@ -551,57 +465,55 @@ class GameLogic extends SinglePlayer{
                 s3 = wordsPanel5textField3.getText();
                 s4 = wordsPanel5textField4.getText();
                 s5 = wordsPanel5textField5.getText();
-                s1check = isSubstring(s1, wordOryginal);
-                s2check = isSubstring(s2, wordOryginal);
-                s3check = isSubstring(s3, wordOryginal);
-                s4check = isSubstring(s4, wordOryginal);
-                s5check = isSubstring(s5, wordOryginal);
-                //checkRepeat();
-                System.out.println(s1check);
-                System.out.println(s2check);
-                System.out.println(s3check);
-                System.out.println(s4check);
-                System.out.println(s5check + "\n");
-                if (s1check == -1) {
-                    wordsPanel5textField1.setBackground(Color.GRAY);
-                } else if (s1check == s1number) {
+                if (Objects.equals(s1, wordLetter1)||Objects.equals(wordLetter1, "0")) {
                     wordsPanel5textField1.setBackground(Color.GREEN);
-                    changeString(1);
+                    wordLetter1 = "0";
                 } else {
-                    wordsPanel5textField1.setBackground(Color.yellow);
+                    if (Objects.equals(s1, wordLetter2) || Objects.equals(s1, wordLetter3) || Objects.equals(s1, wordLetter4) || Objects.equals(s1, wordLetter5)){
+                        wordsPanel5textField1.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel5textField1.setBackground(Color.GRAY);
+                    }
                 }
-                if (s2check == -1) {
-                    wordsPanel5textField2.setBackground(Color.GRAY);
-                } else if (s2check == s2number) {
+                if (Objects.equals(s2, wordLetter2)||Objects.equals(wordLetter2, "0")) {
                     wordsPanel5textField2.setBackground(Color.GREEN);
-                    changeString(2);
+                    wordLetter2 = "0";
                 } else {
-                    wordsPanel5textField2.setBackground(Color.yellow);
+                    if (Objects.equals(s2, wordLetter1) || Objects.equals(s2, wordLetter3) || Objects.equals(s2, wordLetter4) || Objects.equals(s2, wordLetter5)){
+                        wordsPanel5textField2.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel5textField2.setBackground(Color.GRAY);
+                    }
                 }
-                if (s3check == -1) {
-                    wordsPanel5textField3.setBackground(Color.GRAY);
-                } else if (s3check == s3number) {
+                if (Objects.equals(s3, wordLetter3)||Objects.equals(wordLetter3, "0")) {
                     wordsPanel5textField3.setBackground(Color.GREEN);
-                    changeString(3);
+                    wordLetter3 = "0";
                 } else {
-                    wordsPanel5textField3.setBackground(Color.yellow);
+                    if (Objects.equals(s3, wordLetter2) || Objects.equals(s3, wordLetter1) || Objects.equals(s3, wordLetter4) || Objects.equals(s3, wordLetter5)){
+                        wordsPanel5textField3.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel5textField3.setBackground(Color.GRAY);
+                    }
                 }
-                if (s4check == -1) {
-                    wordsPanel5textField4.setBackground(Color.GRAY);
-                } else if (s4check == s4number) {
+                if (Objects.equals(s4, wordLetter4)||Objects.equals(wordLetter4, "0")) {
                     wordsPanel5textField4.setBackground(Color.GREEN);
-                    changeString(4);
+                    wordLetter4 = "0";
                 } else {
-                    wordsPanel5textField4.setBackground(Color.yellow);
+                    if (Objects.equals(s4, wordLetter2) || Objects.equals(s4, wordLetter3) || Objects.equals(s4, wordLetter1) || Objects.equals(s4, wordLetter5)){
+                        wordsPanel5textField4.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel5textField4.setBackground(Color.GRAY);
+                    }
                 }
-                if (s5check == -1) {
-                    wordsPanel5textField5.setBackground(Color.GRAY);
-                } else if (s5check == s5number) {
+                if (Objects.equals(s5, wordLetter5)||Objects.equals(wordLetter5, "0")) {
                     wordsPanel5textField5.setBackground(Color.GREEN);
-                    changeString(5);
-                    System.out.println(word);
+                    wordLetter5 = "0";
                 } else {
-                    wordsPanel5textField5.setBackground(Color.yellow);
+                    if (Objects.equals(s5, wordLetter2) || Objects.equals(s5, wordLetter3) || Objects.equals(s5, wordLetter4) || Objects.equals(s5, wordLetter1)){
+                        wordsPanel5textField5.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel5textField5.setBackground(Color.GRAY);
+                    }
                 }
             }
             default -> {
@@ -610,57 +522,55 @@ class GameLogic extends SinglePlayer{
                 s3 = wordsPanel6textField3.getText();
                 s4 = wordsPanel6textField4.getText();
                 s5 = wordsPanel6textField5.getText();
-                s1check = isSubstring(s1, wordOryginal);
-                s2check = isSubstring(s2, wordOryginal);
-                s3check = isSubstring(s3, wordOryginal);
-                s4check = isSubstring(s4, wordOryginal);
-                s5check = isSubstring(s5, wordOryginal);
-                //checkRepeat();
-                System.out.println(s1check);
-                System.out.println(s2check);
-                System.out.println(s3check);
-                System.out.println(s4check);
-                System.out.println(s5check + "\n");
-                if (s1check == -1) {
-                    wordsPanel6textField1.setBackground(Color.GRAY);
-                } else if (s1check == s1number) {
+                if (Objects.equals(s1, wordLetter1)||Objects.equals(wordLetter1, "0")) {
                     wordsPanel6textField1.setBackground(Color.GREEN);
-                    changeString(1);
+                    wordLetter1 = "0";
                 } else {
-                    wordsPanel6textField1.setBackground(Color.yellow);
+                    if (Objects.equals(s1, wordLetter2) || Objects.equals(s1, wordLetter3) || Objects.equals(s1, wordLetter4) || Objects.equals(s1, wordLetter5)){
+                        wordsPanel6textField1.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel6textField1.setBackground(Color.GRAY);
+                    }
                 }
-                if (s2check == -1) {
-                    wordsPanel6textField2.setBackground(Color.GRAY);
-                } else if (s2check == s2number) {
+                if (Objects.equals(s2, wordLetter2)||Objects.equals(wordLetter2, "0")) {
                     wordsPanel6textField2.setBackground(Color.GREEN);
-                    changeString(2);
+                    wordLetter2 = "0";
                 } else {
-                    wordsPanel6textField2.setBackground(Color.yellow);
+                    if (Objects.equals(s2, wordLetter1) || Objects.equals(s2, wordLetter3) || Objects.equals(s2, wordLetter4) || Objects.equals(s2, wordLetter5)){
+                        wordsPanel6textField2.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel6textField2.setBackground(Color.GRAY);
+                    }
                 }
-                if (s3check == -1) {
-                    wordsPanel6textField3.setBackground(Color.GRAY);
-                } else if (s3check == s3number) {
+                if (Objects.equals(s3, wordLetter3)||Objects.equals(wordLetter3, "0")) {
                     wordsPanel6textField3.setBackground(Color.GREEN);
-                    changeString(3);
+                    wordLetter3 = "0";
                 } else {
-                    wordsPanel6textField3.setBackground(Color.yellow);
+                    if (Objects.equals(s3, wordLetter2) || Objects.equals(s3, wordLetter1) || Objects.equals(s3, wordLetter4) || Objects.equals(s3, wordLetter5)){
+                        wordsPanel6textField3.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel6textField3.setBackground(Color.GRAY);
+                    }
                 }
-                if (s4check == -1) {
-                    wordsPanel6textField4.setBackground(Color.GRAY);
-                } else if (s4check == s4number) {
+                if (Objects.equals(s4, wordLetter4)||Objects.equals(wordLetter4, "0")) {
                     wordsPanel6textField4.setBackground(Color.GREEN);
-                    changeString(4);
+                    wordLetter4 = "0";
                 } else {
-                    wordsPanel6textField4.setBackground(Color.yellow);
+                    if (Objects.equals(s4, wordLetter2) || Objects.equals(s4, wordLetter3) || Objects.equals(s4, wordLetter1) || Objects.equals(s4, wordLetter5)){
+                        wordsPanel6textField4.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel6textField4.setBackground(Color.GRAY);
+                    }
                 }
-                if (s5check == -1) {
-                    wordsPanel6textField5.setBackground(Color.GRAY);
-                } else if (s5check == s5number) {
+                if (Objects.equals(s5, wordLetter5)||Objects.equals(wordLetter5, "0")) {
                     wordsPanel6textField5.setBackground(Color.GREEN);
-                    changeString(5);
-                    System.out.println(word);
+                    wordLetter5 = "0";
                 } else {
-                    wordsPanel6textField5.setBackground(Color.yellow);
+                    if (Objects.equals(s5, wordLetter2) || Objects.equals(s5, wordLetter3) || Objects.equals(s5, wordLetter4) || Objects.equals(s5, wordLetter1)){
+                        wordsPanel6textField5.setBackground(Color.YELLOW);
+                    }else{
+                        wordsPanel6textField5.setBackground(Color.GRAY);
+                    }
                 }
             }
         }
@@ -669,4 +579,3 @@ class GameLogic extends SinglePlayer{
 
 }
 
-// This code is contributed by JaideepPyne.

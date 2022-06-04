@@ -11,25 +11,26 @@ public class MainMenu {
     JButton singlePlayer,multiPlayer,rules;
     MainMenu(){
         mainMenuFrame = new JFrame("Wordle");
-        mainMenuFrame.setSize(960, 1080);
+        mainMenuFrame.setSize(960, 800);
 
         mainMenuTitle = new JLabel("Wordle");
-        mainMenuTitle.setBounds(400, 30, 400, 60);
+        mainMenuTitle.setBounds(425, 30, 400, 60);
         mainMenuTitle.setFont(new Font("Serif", Font.PLAIN, 40));
 
         singlePlayer = new JButton("Single-player");
-        singlePlayer.setBounds(360, 400, 200, 80);
+        singlePlayer.setBounds(380, 250, 200, 80);
 
         multiPlayer = new JButton("Multiplayer");
-        multiPlayer.setBounds(360, 500, 200, 80);
+        multiPlayer.setBounds(380, 350, 200, 80);
 
         rules = new JButton("Rules");
-        rules.setBounds(360, 600, 200, 80);
+        rules.setBounds(380, 450, 200, 80);
 
         singlePlayer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainMenuFrame.setVisible(false);
+                SinglePlayer singlePlayer = new SinglePlayer();
                 SinglePlayer.FrameSetVisibleTrue();
             }
         });
@@ -58,10 +59,10 @@ public class MainMenu {
         mainMenuFrame.setResizable(false);
         mainMenuFrame.setVisible(true);
     };
-    public static void FrameSetVisibleTrue(){
+    public static void MainMenuFrameSetVisibleTrue(){
         mainMenuFrame.setVisible(true);
     }
-    public static void FrameSetVisibleFalse(){
+    public static void MainMenuFrameVisibleFalse(){
         mainMenuFrame.setVisible(false);
     }
 }

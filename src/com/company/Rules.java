@@ -1,25 +1,23 @@
 package com.company;
 
 
-import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
 
 public class Rules {
     static JFrame rulesFrame;
-    JLabel rulesTitle,picLabel;
+    JLabel rulesTitle;
     JButton returnButton;
-    JPanel jPanel ;
+
     Rules() throws IOException {
         rulesFrame = new JFrame("Wordle");
-        rulesFrame.setSize(960, 1080);
+        rulesFrame.setSize(960, 800);
         rulesFrame.setLayout(null);
 
         rulesTitle = new JLabel("Woooordle");
@@ -33,7 +31,7 @@ public class Rules {
             @Override
             public void actionPerformed(ActionEvent e) {
                 rulesFrame.setVisible(false);
-                MainMenu.FrameSetVisibleTrue();
+                MainMenu.MainMenuFrameSetVisibleTrue();
             }
         });
         URL image = Main.class.getClassLoader().getResource("rules.PNG");
@@ -43,7 +41,6 @@ public class Rules {
         panel.setBounds(244,100,472,469);
 
         panel.add(label);
-
 
         rulesFrame.add(rulesTitle,BorderLayout.NORTH);
         rulesFrame.add(panel,BorderLayout.CENTER);

@@ -20,21 +20,28 @@ public class SinglePlayer {
     static JTextField wordsPanel4textField1,wordsPanel4textField2,wordsPanel4textField3,wordsPanel4textField4,wordsPanel4textField5;
     static JTextField wordsPanel5textField1,wordsPanel5textField2,wordsPanel5textField3,wordsPanel5textField4,wordsPanel5textField5;
     static JTextField wordsPanel6textField1,wordsPanel6textField2,wordsPanel6textField3,wordsPanel6textField4,wordsPanel6textField5;
-    Font fontResults = new Font("SansSerif",Font.BOLD, 35);
+    static JTextField resultTextField;
+    Font fontResults = new Font("SansSerif",Font.BOLD, 33);
     static int rowNumber = 1;
-    static int colNumber=1;
-    static String word,wordOryginal;
-
+    static int colNumber = 1;
+    static String word;
+    static String wordLetter1, wordLetter2, wordLetter3, wordLetter4, wordLetter5;
 
     SinglePlayer(){
+
         word = readFile();
-        wordOryginal = word;
+        wordLetter1 = word.substring(0,1);
+        wordLetter2 = word.substring(1,2);
+        wordLetter3 = word.substring(2,3);
+        wordLetter4 = word.substring(3,4);
+        wordLetter5 = word.substring(4,5);
         System.out.println(word);
+
         singlePlayerFrame = new JFrame("Wordle");
-        singlePlayerFrame.setSize(960, 960);
+        singlePlayerFrame.setSize(960, 800);
 
         singlePlayerTitle = new JLabel("Wordle");
-        singlePlayerTitle.setBounds(400, 0, 400, 60);
+        singlePlayerTitle.setBounds(425, 30, 400, 60);
         singlePlayerTitle.setFont(new Font("Serif", Font.PLAIN, 40));
 
         JPanel wordsPanels = new JPanel();
@@ -42,30 +49,29 @@ public class SinglePlayer {
         wordsPanels.setBounds(244,100,472,400);
 
         JPanel wordsPanel1 = new JPanel();
-        wordsPanel1.setBackground(Color.RED);
 
         wordsPanel1textField1 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel1textField1.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel1textField1.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel1textField1.setEditable(false);
         wordsPanel1textField1.setFont(fontResults);
 
         wordsPanel1textField2 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel1textField2.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel1textField2.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel1textField2.setFont(fontResults);
         wordsPanel1textField2.setEditable(false);
 
         wordsPanel1textField3 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel1textField3.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel1textField3.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel1textField3.setFont(fontResults);
         wordsPanel1textField3.setEditable(false);
 
         wordsPanel1textField4 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel1textField4.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel1textField4.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel1textField4.setFont(fontResults);
         wordsPanel1textField4.setEditable(false);
 
         wordsPanel1textField5 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel1textField5.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel1textField5.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel1textField5.setFont(fontResults);
         wordsPanel1textField5.setEditable(false);
 
@@ -76,29 +82,29 @@ public class SinglePlayer {
         wordsPanel1.add(wordsPanel1textField5);
 
         JPanel wordsPanel2 = new JPanel();
-        wordsPanel2.setBackground(Color.BLUE);
+
         wordsPanel2textField1 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel2textField1.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel2textField1.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel2textField1.setEditable(false);
         wordsPanel2textField1.setFont(fontResults);
 
         wordsPanel2textField2 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel2textField2.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel2textField2.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel2textField2.setFont(fontResults);
         wordsPanel2textField2.setEditable(false);
 
         wordsPanel2textField3 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel2textField3.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel2textField3.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel2textField3.setFont(fontResults);
         wordsPanel2textField3.setEditable(false);
 
         wordsPanel2textField4 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel2textField4.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel2textField4.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel2textField4.setFont(fontResults);
         wordsPanel2textField4.setEditable(false);
 
         wordsPanel2textField5 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel2textField5.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel2textField5.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel2textField5.setFont(fontResults);
         wordsPanel2textField5.setEditable(false);
 
@@ -109,29 +115,29 @@ public class SinglePlayer {
         wordsPanel2.add(wordsPanel2textField5);
 
         JPanel wordsPanel3 = new JPanel();
-        wordsPanel3.setBackground(Color.RED);
+
         wordsPanel3textField1 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel3textField1.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel3textField1.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel3textField1.setEditable(false);
         wordsPanel3textField1.setFont(fontResults);
 
         wordsPanel3textField2 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel3textField2.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel3textField2.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel3textField2.setFont(fontResults);
         wordsPanel3textField2.setEditable(false);
 
         wordsPanel3textField3 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel3textField3.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel3textField3.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel3textField3.setFont(fontResults);
         wordsPanel3textField3.setEditable(false);
 
         wordsPanel3textField4 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel3textField4.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel3textField4.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel3textField4.setFont(fontResults);
         wordsPanel3textField4.setEditable(false);
 
         wordsPanel3textField5 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel3textField5.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel3textField5.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel3textField5.setFont(fontResults);
         wordsPanel3textField5.setEditable(false);
 
@@ -142,29 +148,29 @@ public class SinglePlayer {
         wordsPanel3.add(wordsPanel3textField5);
 
         JPanel wordsPanel4 = new JPanel();
-        wordsPanel4.setBackground(Color.BLUE);
+
         wordsPanel4textField1 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel4textField1.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel4textField1.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel4textField1.setEditable(false);
         wordsPanel4textField1.setFont(fontResults);
 
         wordsPanel4textField2 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel4textField2.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel4textField2.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel4textField2.setFont(fontResults);
         wordsPanel4textField2.setEditable(false);
 
         wordsPanel4textField3 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel4textField3.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel4textField3.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel4textField3.setFont(fontResults);
         wordsPanel4textField3.setEditable(false);
 
         wordsPanel4textField4 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel4textField4.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel4textField4.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel4textField4.setFont(fontResults);
         wordsPanel4textField4.setEditable(false);
 
         wordsPanel4textField5 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel4textField5.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel4textField5.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel4textField5.setFont(fontResults);
         wordsPanel4textField5.setEditable(false);
 
@@ -175,29 +181,29 @@ public class SinglePlayer {
         wordsPanel4.add(wordsPanel4textField5);
 
         JPanel wordsPanel5 = new JPanel();
-        wordsPanel5.setBackground(Color.RED);
+
         wordsPanel5textField1 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel5textField1.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel5textField1.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel5textField1.setEditable(false);
         wordsPanel5textField1.setFont(fontResults);
 
         wordsPanel5textField2 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel5textField2.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel5textField2.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel5textField2.setFont(fontResults);
         wordsPanel5textField2.setEditable(false);
 
         wordsPanel5textField3 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel5textField3.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel5textField3.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel5textField3.setFont(fontResults);
         wordsPanel5textField3.setEditable(false);
 
         wordsPanel5textField4 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel5textField4.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel5textField4.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel5textField4.setFont(fontResults);
         wordsPanel5textField4.setEditable(false);
 
         wordsPanel5textField5 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel5textField5.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel5textField5.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel5textField5.setFont(fontResults);
         wordsPanel5textField5.setEditable(false);
 
@@ -208,29 +214,29 @@ public class SinglePlayer {
         wordsPanel5.add(wordsPanel5textField5);
 
         JPanel wordsPanel6 = new JPanel();
-        wordsPanel6.setBackground(Color.BLUE);
+
         wordsPanel6textField1 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel6textField1.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel6textField1.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel6textField1.setEditable(false);
         wordsPanel6textField1.setFont(fontResults);
 
         wordsPanel6textField2 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel6textField2.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel6textField2.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel6textField2.setFont(fontResults);
         wordsPanel6textField2.setEditable(false);
 
         wordsPanel6textField3 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel6textField3.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel6textField3.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel6textField3.setFont(fontResults);
         wordsPanel6textField3.setEditable(false);
 
         wordsPanel6textField4 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel6textField4.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel6textField4.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel6textField4.setFont(fontResults);
         wordsPanel6textField4.setEditable(false);
 
         wordsPanel6textField5 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel6textField5.setHorizontalAlignment(JTextField.RIGHT);
+        wordsPanel6textField5.setHorizontalAlignment(JTextField.CENTER);
         wordsPanel6textField5.setFont(fontResults);
         wordsPanel6textField5.setEditable(false);
 
@@ -247,25 +253,28 @@ public class SinglePlayer {
         wordsPanels.add(wordsPanel5);
         wordsPanels.add(wordsPanel6);
 
+        resultTextField = new JTextField("Test");
+        resultTextField.setBounds(280, 530, 400, 60);
+        resultTextField.setFont(new Font("Serif", Font.PLAIN, 40));
+        resultTextField.setHorizontalAlignment(JTextField.CENTER);
+        resultTextField.setEditable(false);
+        resultTextField.setVisible(false);
+
         JPanel keyboardPanel = new JPanel();
         keyboardPanel.setLayout(new GridLayout(3,1,10,10));
-        keyboardPanel.setBounds(175,500,600,100);
-        keyboardPanel.setBackground(Color.CYAN);
+        keyboardPanel.setBounds(175,630,600,100);
+
         JPanel keyboardPanel1 = new JPanel();
         keyboardPanel1.setLayout(new GridLayout(1,10,10,10));
         keyboardPanel1.setBounds(244,500,600,30);
-        keyboardPanel1.setBackground(Color.RED);
+
         JPanel keyboardPanel2 = new JPanel();
         keyboardPanel2.setLayout(new GridLayout(1,9,10,10));
         keyboardPanel2.setBounds(244,500,500,30);
-        keyboardPanel2.setBackground(Color.BLUE);
+
         JPanel keyboardPanel3 = new JPanel();
         keyboardPanel3.setLayout(new GridLayout(1,9,10,10));
         keyboardPanel3.setBounds(244,500,500,30);
-        keyboardPanel3.setBackground(Color.RED);
-
-        //JPanel panelBlank1 = new JPanel();
-        //JPanel panelBlank2 = new JPanel();
 
         qButton = new JButton("Q");
         qButton.setBounds(25, 800, 100, 20);
@@ -557,7 +566,6 @@ public class SinglePlayer {
         keyboardPanel1.add(iButton);
         keyboardPanel1.add(oButton);
         keyboardPanel1.add(pButton);
-        //keyboardPanel.add(panelBlank1);
         keyboardPanel2.add(aButton);
         keyboardPanel2.add(sButton);
         keyboardPanel2.add(dButton);
@@ -567,7 +575,6 @@ public class SinglePlayer {
         keyboardPanel2.add(jButton);
         keyboardPanel2.add(kButton);
         keyboardPanel2.add(lButton);
-        //keyboardPanel.add(panelBlank2);
         keyboardPanel3.add(enterButton);
         keyboardPanel3.add(zButton);
         keyboardPanel3.add(xButton);
@@ -583,27 +590,35 @@ public class SinglePlayer {
         keyboardPanel.add(keyboardPanel3);
 
         returnButton = new JButton("Return");
-        returnButton.setBounds(25, 800, 100, 80);
+        returnButton.setBounds(25, 650, 100, 80);
 
         returnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 singlePlayerFrame.setVisible(false);
-                MainMenu.FrameSetVisibleTrue();
+                MainMenu.MainMenuFrameSetVisibleTrue();
+                singlePlayerFrame.dispose();
+                rowNumber =1;
+                colNumber =1;
             }
         });
         newWordButton = new JButton("New word");
-        newWordButton.setBounds(820, 800, 100, 80);
+        newWordButton.setBounds(820, 650, 100, 80);
 
         newWordButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                singlePlayerFrame.dispose();
+                SinglePlayer singlePlayer = new SinglePlayer();
+                singlePlayerFrame.setVisible(true);
+                colNumber =1;
+                rowNumber =1;
             }
         });
 
         singlePlayerFrame.add(singlePlayerTitle);
         singlePlayerFrame.add(wordsPanels);
+        singlePlayerFrame.add(resultTextField);
         singlePlayerFrame.add(keyboardPanel);
         singlePlayerFrame.add(returnButton);
         singlePlayerFrame.add(newWordButton);
@@ -612,7 +627,6 @@ public class SinglePlayer {
         singlePlayerFrame.setLocationRelativeTo(null);
         singlePlayerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         singlePlayerFrame.setResizable(false);
-        //zmiana na true pod testowanie domyslnie false
         singlePlayerFrame.setVisible(false);
     };
     public static void FrameSetVisibleTrue(){

@@ -14,7 +14,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         MainMenu mainMenu = new MainMenu();
 
-        SinglePlayer singlePlayer = new SinglePlayer();
+        //SinglePlayer singlePlayer = new SinglePlayer();
         MultiPlayer multiPlayer = new MultiPlayer();
         Rules rules = new Rules();
 

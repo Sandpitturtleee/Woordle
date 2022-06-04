@@ -12,11 +12,11 @@ import java.net.URL;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        //MainMenu mainMenu = new MainMenu();
+        MainMenu mainMenu = new MainMenu();
 
         SinglePlayer singlePlayer = new SinglePlayer();
-        //MultiPlayer multiPlayer = new MultiPlayer();
-        //Rules rules = new Rules();
+        MultiPlayer multiPlayer = new MultiPlayer();
+        Rules rules = new Rules();
 
     }
 }

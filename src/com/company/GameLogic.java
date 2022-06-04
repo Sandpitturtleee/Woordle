@@ -29,6 +29,24 @@ class GameLogic extends SinglePlayer{
         String word = words.get(index);
         return word;
     }
+    static void changeString(int colNumber){
+        switch (colNumber) {
+            case 1:
+                word = "0" + word.substring(1,5);
+                break;
+            case 2:
+                word = word.substring(0,1)+ "0" + word.substring(2,5);
+                break;
+            case 3:
+                word = word.substring(0,2)+ "0" + word.substring(3,5);
+                break;
+            case 4:
+                word = word.substring(0,3)+ "0" + word.substring(4,5);
+                break;
+            default:
+                word = word.substring(0,4)+ "0";
+        }
+    }
 
     static void checkVictory(){
         if (checkWord()==1){
@@ -189,7 +207,7 @@ class GameLogic extends SinglePlayer{
                 s4 = wordsPanel1textField4.getText();
                 s5 = wordsPanel1textField5.getText();
                 all = s1+s2+s3+s4+s5;
-                if (all.equals(word))
+                if (all.equals(wordOryginal))
                     result=1;
                 break;
             case 2:
@@ -199,7 +217,7 @@ class GameLogic extends SinglePlayer{
                 s4 = wordsPanel2textField4.getText();
                 s5 = wordsPanel2textField5.getText();
                 all = s1+s2+s3+s4+s5;
-                if (all.equals(word))
+                if (all.equals(wordOryginal))
                     result=1;
                 break;
             case 3:
@@ -209,7 +227,7 @@ class GameLogic extends SinglePlayer{
                 s4 = wordsPanel3textField4.getText();
                 s5 = wordsPanel3textField5.getText();
                 all = s1+s2+s3+s4+s5;
-                if (all.equals(word))
+                if (all.equals(wordOryginal))
                     result=1;
                 break;
             case 4:
@@ -219,7 +237,7 @@ class GameLogic extends SinglePlayer{
                 s4 = wordsPanel4textField4.getText();
                 s5 = wordsPanel4textField5.getText();
                 all = s1+s2+s3+s4+s5;
-                if (all.equals(word))
+                if (all.equals(wordOryginal))
                     result=1;
                 break;
             case 5:
@@ -229,7 +247,7 @@ class GameLogic extends SinglePlayer{
                 s4 = wordsPanel5textField4.getText();
                 s5 = wordsPanel5textField5.getText();
                 all = s1+s2+s3+s4+s5;
-                if (all.equals(word))
+                if (all.equals(wordOryginal))
                     result=1;
                 break;
             default:
@@ -239,7 +257,7 @@ class GameLogic extends SinglePlayer{
                 s4 = wordsPanel6textField4.getText();
                 s5 = wordsPanel6textField5.getText();
                 all = s1+s2+s3+s4+s5;
-                if (all.equals(word))
+                if (all.equals(wordOryginal))
                     result=1;
                 else
                     result=0;
@@ -247,49 +265,49 @@ class GameLogic extends SinglePlayer{
         return result;
     }
     static void checkRepeat(){
-        s1check = isSubstring(s1, word);
-        s2check = isSubstring(s2, word);
-        s3check = isSubstring(s3, word);
-        s4check = isSubstring(s4, word);
-        s5check = isSubstring(s5, word);
+        s1check = isSubstring(s1, wordOryginal);
+        s2check = isSubstring(s2, wordOryginal);
+        s3check = isSubstring(s3, wordOryginal);
+        s4check = isSubstring(s4, wordOryginal);
+        s5check = isSubstring(s5, wordOryginal);
         if (s2check == s1check){
             nextLetter+=1;
-            s2check = isSubstring(s2,word);
+            s2check = isSubstring(s2,wordOryginal);
         }
         if (s3check == s1check){
             nextLetter+=2;
-            s3check = isSubstring(s3,word);
+            s3check = isSubstring(s3,wordOryginal);
         }else if (s3check == s2check){
             nextLetter+=1;
-            s3check = isSubstring(s3,word);
+            s3check = isSubstring(s3,wordOryginal);
         }
         if (s4check == s1check){
             nextLetter+=3;
-            s4check = isSubstring(s4,word);
+            s4check = isSubstring(s4,wordOryginal);
         }else if(s4check == s2check){
             nextLetter+=2;
-            s4check = isSubstring(s4,word);
+            s4check = isSubstring(s4,wordOryginal);
         }else if(s4check == s3check){
             nextLetter+=1;
-            s4check = isSubstring(s4,word);
+            s4check = isSubstring(s4,wordOryginal);
         }
         if (s5check == s1check){
             nextLetter+=4;
-            s5check = isSubstring(s5,word);
+            s5check = isSubstring(s5,wordOryginal);
         }else if(s5check == s2check){
             nextLetter+=3;
-            s5check = isSubstring(s5,word);
+            s5check = isSubstring(s5,wordOryginal);
         }else if(s5check == s3check){
             nextLetter+=2;
-            s5check = isSubstring(s5,word);
+            s5check = isSubstring(s5,wordOryginal);
         }else if(s5check == s4check){
             nextLetter+=1;
-            s5check = isSubstring(s5,word);
+            s5check = isSubstring(s5,wordOryginal);
         }
     }
     static void checkLetter(){
         int s1number = 0, s2number = 1,s3number = 2, s4number = 3,s5number = 4;
-
+        String word1;
         switch (rowNumber) {
             case 1 -> {
                 s1 = wordsPanel1textField1.getText();
@@ -297,7 +315,12 @@ class GameLogic extends SinglePlayer{
                 s3 = wordsPanel1textField3.getText();
                 s4 = wordsPanel1textField4.getText();
                 s5 = wordsPanel1textField5.getText();
-                checkRepeat();
+                s1check = isSubstring(s1, wordOryginal);
+                s2check = isSubstring(s2, wordOryginal);
+                s3check = isSubstring(s3, wordOryginal);
+                s4check = isSubstring(s4, wordOryginal);
+                s5check = isSubstring(s5, wordOryginal);
+                //checkRepeat();
                 System.out.println(s1check);
                 System.out.println(s2check);
                 System.out.println(s3check);
@@ -307,6 +330,7 @@ class GameLogic extends SinglePlayer{
                     wordsPanel1textField1.setBackground(Color.GRAY);
                 } else if (s1check == s1number) {
                     wordsPanel1textField1.setBackground(Color.GREEN);
+                    changeString(1);
                 } else {
                     wordsPanel1textField1.setBackground(Color.yellow);
                 }
@@ -314,6 +338,7 @@ class GameLogic extends SinglePlayer{
                     wordsPanel1textField2.setBackground(Color.GRAY);
                 } else if (s2check == s2number) {
                     wordsPanel1textField2.setBackground(Color.GREEN);
+                    changeString(2);
                 } else {
                     wordsPanel1textField2.setBackground(Color.yellow);
                 }
@@ -321,6 +346,7 @@ class GameLogic extends SinglePlayer{
                     wordsPanel1textField3.setBackground(Color.GRAY);
                 } else if (s3check == s3number) {
                     wordsPanel1textField3.setBackground(Color.GREEN);
+                    changeString(3);
                 } else {
                     wordsPanel1textField3.setBackground(Color.yellow);
                 }
@@ -328,6 +354,7 @@ class GameLogic extends SinglePlayer{
                     wordsPanel1textField4.setBackground(Color.GRAY);
                 } else if (s4check == s4number) {
                     wordsPanel1textField4.setBackground(Color.GREEN);
+                    changeString(4);
                 } else {
                     wordsPanel1textField4.setBackground(Color.yellow);
                 }
@@ -335,6 +362,8 @@ class GameLogic extends SinglePlayer{
                     wordsPanel1textField5.setBackground(Color.GRAY);
                 } else if (s5check == s5number) {
                     wordsPanel1textField5.setBackground(Color.GREEN);
+                    changeString(5);
+                    System.out.println(word);
                 } else {
                     wordsPanel1textField5.setBackground(Color.yellow);
                 }
@@ -345,7 +374,12 @@ class GameLogic extends SinglePlayer{
                 s3 = wordsPanel2textField3.getText();
                 s4 = wordsPanel2textField4.getText();
                 s5 = wordsPanel2textField5.getText();
-                checkRepeat();
+                s1check = isSubstring(s1, wordOryginal);
+                s2check = isSubstring(s2, wordOryginal);
+                s3check = isSubstring(s3, wordOryginal);
+                s4check = isSubstring(s4, wordOryginal);
+                s5check = isSubstring(s5, wordOryginal);
+                //checkRepeat();
                 System.out.println(s1check);
                 System.out.println(s2check);
                 System.out.println(s3check);
@@ -355,6 +389,7 @@ class GameLogic extends SinglePlayer{
                     wordsPanel2textField1.setBackground(Color.GRAY);
                 } else if (s1check == s1number) {
                     wordsPanel2textField1.setBackground(Color.GREEN);
+                    changeString(1);
                 } else {
                     wordsPanel2textField1.setBackground(Color.yellow);
                 }
@@ -362,6 +397,7 @@ class GameLogic extends SinglePlayer{
                     wordsPanel2textField2.setBackground(Color.GRAY);
                 } else if (s2check == s2number) {
                     wordsPanel2textField2.setBackground(Color.GREEN);
+                    changeString(2);
                 } else {
                     wordsPanel2textField2.setBackground(Color.yellow);
                 }
@@ -369,6 +405,7 @@ class GameLogic extends SinglePlayer{
                     wordsPanel2textField3.setBackground(Color.GRAY);
                 } else if (s3check == s3number) {
                     wordsPanel2textField3.setBackground(Color.GREEN);
+                    changeString(3);
                 } else {
                     wordsPanel2textField3.setBackground(Color.yellow);
                 }
@@ -376,6 +413,7 @@ class GameLogic extends SinglePlayer{
                     wordsPanel2textField4.setBackground(Color.GRAY);
                 } else if (s4check == s4number) {
                     wordsPanel2textField4.setBackground(Color.GREEN);
+                    changeString(4);
                 } else {
                     wordsPanel2textField4.setBackground(Color.yellow);
                 }
@@ -383,6 +421,8 @@ class GameLogic extends SinglePlayer{
                     wordsPanel2textField5.setBackground(Color.GRAY);
                 } else if (s5check == s5number) {
                     wordsPanel2textField5.setBackground(Color.GREEN);
+                    changeString(5);
+                    System.out.println(word);
                 } else {
                     wordsPanel2textField5.setBackground(Color.yellow);
                 }
@@ -393,7 +433,12 @@ class GameLogic extends SinglePlayer{
                 s3 = wordsPanel3textField3.getText();
                 s4 = wordsPanel3textField4.getText();
                 s5 = wordsPanel3textField5.getText();
-                checkRepeat();
+                s1check = isSubstring(s1, wordOryginal);
+                s2check = isSubstring(s2, wordOryginal);
+                s3check = isSubstring(s3, wordOryginal);
+                s4check = isSubstring(s4, wordOryginal);
+                s5check = isSubstring(s5, wordOryginal);
+                //checkRepeat();
                 System.out.println(s1check);
                 System.out.println(s2check);
                 System.out.println(s3check);
@@ -403,6 +448,7 @@ class GameLogic extends SinglePlayer{
                     wordsPanel3textField1.setBackground(Color.GRAY);
                 } else if (s1check == s1number) {
                     wordsPanel3textField1.setBackground(Color.GREEN);
+                    changeString(1);
                 } else {
                     wordsPanel3textField1.setBackground(Color.yellow);
                 }
@@ -410,6 +456,7 @@ class GameLogic extends SinglePlayer{
                     wordsPanel3textField2.setBackground(Color.GRAY);
                 } else if (s2check == s2number) {
                     wordsPanel3textField2.setBackground(Color.GREEN);
+                    changeString(2);
                 } else {
                     wordsPanel3textField2.setBackground(Color.yellow);
                 }
@@ -417,6 +464,7 @@ class GameLogic extends SinglePlayer{
                     wordsPanel3textField3.setBackground(Color.GRAY);
                 } else if (s3check == s3number) {
                     wordsPanel3textField3.setBackground(Color.GREEN);
+                    changeString(3);
                 } else {
                     wordsPanel3textField3.setBackground(Color.yellow);
                 }
@@ -424,6 +472,7 @@ class GameLogic extends SinglePlayer{
                     wordsPanel3textField4.setBackground(Color.GRAY);
                 } else if (s4check == s4number) {
                     wordsPanel3textField4.setBackground(Color.GREEN);
+                    changeString(4);
                 } else {
                     wordsPanel3textField4.setBackground(Color.yellow);
                 }
@@ -431,6 +480,8 @@ class GameLogic extends SinglePlayer{
                     wordsPanel3textField5.setBackground(Color.GRAY);
                 } else if (s5check == s5number) {
                     wordsPanel3textField5.setBackground(Color.GREEN);
+                    changeString(5);
+                    System.out.println(word);
                 } else {
                     wordsPanel3textField5.setBackground(Color.yellow);
                 }
@@ -441,7 +492,12 @@ class GameLogic extends SinglePlayer{
                 s3 = wordsPanel4textField3.getText();
                 s4 = wordsPanel4textField4.getText();
                 s5 = wordsPanel4textField5.getText();
-                checkRepeat();
+                s1check = isSubstring(s1, wordOryginal);
+                s2check = isSubstring(s2, wordOryginal);
+                s3check = isSubstring(s3, wordOryginal);
+                s4check = isSubstring(s4, wordOryginal);
+                s5check = isSubstring(s5, wordOryginal);
+                //checkRepeat();
                 System.out.println(s1check);
                 System.out.println(s2check);
                 System.out.println(s3check);
@@ -451,6 +507,7 @@ class GameLogic extends SinglePlayer{
                     wordsPanel4textField1.setBackground(Color.GRAY);
                 } else if (s1check == s1number) {
                     wordsPanel4textField1.setBackground(Color.GREEN);
+                    changeString(1);
                 } else {
                     wordsPanel4textField1.setBackground(Color.yellow);
                 }
@@ -458,6 +515,7 @@ class GameLogic extends SinglePlayer{
                     wordsPanel4textField2.setBackground(Color.GRAY);
                 } else if (s2check == s2number) {
                     wordsPanel4textField2.setBackground(Color.GREEN);
+                    changeString(2);
                 } else {
                     wordsPanel4textField2.setBackground(Color.yellow);
                 }
@@ -465,6 +523,7 @@ class GameLogic extends SinglePlayer{
                     wordsPanel4textField3.setBackground(Color.GRAY);
                 } else if (s3check == s3number) {
                     wordsPanel4textField3.setBackground(Color.GREEN);
+                    changeString(3);
                 } else {
                     wordsPanel4textField3.setBackground(Color.yellow);
                 }
@@ -472,6 +531,7 @@ class GameLogic extends SinglePlayer{
                     wordsPanel4textField4.setBackground(Color.GRAY);
                 } else if (s4check == s4number) {
                     wordsPanel4textField4.setBackground(Color.GREEN);
+                    changeString(4);
                 } else {
                     wordsPanel4textField4.setBackground(Color.yellow);
                 }
@@ -479,6 +539,8 @@ class GameLogic extends SinglePlayer{
                     wordsPanel4textField5.setBackground(Color.GRAY);
                 } else if (s5check == s5number) {
                     wordsPanel4textField5.setBackground(Color.GREEN);
+                    changeString(5);
+                    System.out.println(word);
                 } else {
                     wordsPanel4textField5.setBackground(Color.yellow);
                 }
@@ -489,7 +551,12 @@ class GameLogic extends SinglePlayer{
                 s3 = wordsPanel5textField3.getText();
                 s4 = wordsPanel5textField4.getText();
                 s5 = wordsPanel5textField5.getText();
-                checkRepeat();
+                s1check = isSubstring(s1, wordOryginal);
+                s2check = isSubstring(s2, wordOryginal);
+                s3check = isSubstring(s3, wordOryginal);
+                s4check = isSubstring(s4, wordOryginal);
+                s5check = isSubstring(s5, wordOryginal);
+                //checkRepeat();
                 System.out.println(s1check);
                 System.out.println(s2check);
                 System.out.println(s3check);
@@ -499,6 +566,7 @@ class GameLogic extends SinglePlayer{
                     wordsPanel5textField1.setBackground(Color.GRAY);
                 } else if (s1check == s1number) {
                     wordsPanel5textField1.setBackground(Color.GREEN);
+                    changeString(1);
                 } else {
                     wordsPanel5textField1.setBackground(Color.yellow);
                 }
@@ -506,6 +574,7 @@ class GameLogic extends SinglePlayer{
                     wordsPanel5textField2.setBackground(Color.GRAY);
                 } else if (s2check == s2number) {
                     wordsPanel5textField2.setBackground(Color.GREEN);
+                    changeString(2);
                 } else {
                     wordsPanel5textField2.setBackground(Color.yellow);
                 }
@@ -513,6 +582,7 @@ class GameLogic extends SinglePlayer{
                     wordsPanel5textField3.setBackground(Color.GRAY);
                 } else if (s3check == s3number) {
                     wordsPanel5textField3.setBackground(Color.GREEN);
+                    changeString(3);
                 } else {
                     wordsPanel5textField3.setBackground(Color.yellow);
                 }
@@ -520,6 +590,7 @@ class GameLogic extends SinglePlayer{
                     wordsPanel5textField4.setBackground(Color.GRAY);
                 } else if (s4check == s4number) {
                     wordsPanel5textField4.setBackground(Color.GREEN);
+                    changeString(4);
                 } else {
                     wordsPanel5textField4.setBackground(Color.yellow);
                 }
@@ -527,6 +598,8 @@ class GameLogic extends SinglePlayer{
                     wordsPanel5textField5.setBackground(Color.GRAY);
                 } else if (s5check == s5number) {
                     wordsPanel5textField5.setBackground(Color.GREEN);
+                    changeString(5);
+                    System.out.println(word);
                 } else {
                     wordsPanel5textField5.setBackground(Color.yellow);
                 }
@@ -537,7 +610,12 @@ class GameLogic extends SinglePlayer{
                 s3 = wordsPanel6textField3.getText();
                 s4 = wordsPanel6textField4.getText();
                 s5 = wordsPanel6textField5.getText();
-                checkRepeat();
+                s1check = isSubstring(s1, wordOryginal);
+                s2check = isSubstring(s2, wordOryginal);
+                s3check = isSubstring(s3, wordOryginal);
+                s4check = isSubstring(s4, wordOryginal);
+                s5check = isSubstring(s5, wordOryginal);
+                //checkRepeat();
                 System.out.println(s1check);
                 System.out.println(s2check);
                 System.out.println(s3check);
@@ -547,6 +625,7 @@ class GameLogic extends SinglePlayer{
                     wordsPanel6textField1.setBackground(Color.GRAY);
                 } else if (s1check == s1number) {
                     wordsPanel6textField1.setBackground(Color.GREEN);
+                    changeString(1);
                 } else {
                     wordsPanel6textField1.setBackground(Color.yellow);
                 }
@@ -554,6 +633,7 @@ class GameLogic extends SinglePlayer{
                     wordsPanel6textField2.setBackground(Color.GRAY);
                 } else if (s2check == s2number) {
                     wordsPanel6textField2.setBackground(Color.GREEN);
+                    changeString(2);
                 } else {
                     wordsPanel6textField2.setBackground(Color.yellow);
                 }
@@ -561,6 +641,7 @@ class GameLogic extends SinglePlayer{
                     wordsPanel6textField3.setBackground(Color.GRAY);
                 } else if (s3check == s3number) {
                     wordsPanel6textField3.setBackground(Color.GREEN);
+                    changeString(3);
                 } else {
                     wordsPanel6textField3.setBackground(Color.yellow);
                 }
@@ -568,6 +649,7 @@ class GameLogic extends SinglePlayer{
                     wordsPanel6textField4.setBackground(Color.GRAY);
                 } else if (s4check == s4number) {
                     wordsPanel6textField4.setBackground(Color.GREEN);
+                    changeString(4);
                 } else {
                     wordsPanel6textField4.setBackground(Color.yellow);
                 }
@@ -575,6 +657,8 @@ class GameLogic extends SinglePlayer{
                     wordsPanel6textField5.setBackground(Color.GRAY);
                 } else if (s5check == s5number) {
                     wordsPanel6textField5.setBackground(Color.GREEN);
+                    changeString(5);
+                    System.out.println(word);
                 } else {
                     wordsPanel6textField5.setBackground(Color.yellow);
                 }

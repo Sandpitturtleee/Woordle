@@ -23,11 +23,12 @@ public class SinglePlayer {
     Font fontResults = new Font("SansSerif",Font.BOLD, 35);
     static int rowNumber = 1;
     static int colNumber=1;
-    static String word;
+    static String word,wordOryginal;
 
 
     SinglePlayer(){
         word = readFile();
+        wordOryginal = word;
         System.out.println(word);
         singlePlayerFrame = new JFrame("Wordle");
         singlePlayerFrame.setSize(960, 960);
@@ -612,7 +613,7 @@ public class SinglePlayer {
         singlePlayerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         singlePlayerFrame.setResizable(false);
         //zmiana na true pod testowanie domyslnie false
-        singlePlayerFrame.setVisible(true);
+        singlePlayerFrame.setVisible(false);
     };
     public static void FrameSetVisibleTrue(){
         singlePlayerFrame.setVisible(true);

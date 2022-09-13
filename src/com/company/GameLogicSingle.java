@@ -8,10 +8,11 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
-class GameLogic extends SinglePlayer{
+class GameLogicSingle extends SinglePlayer {
     static String s1,s2,s3,s4,s5,all;
+    static ArrayList<String> words = new ArrayList<>();
     static String readFile(){
-        ArrayList<String> words = new ArrayList<>();
+
 
         try (Scanner s = new Scanner(new FileReader("resources/words.txt"))) {
             while (s.hasNext()) {
@@ -26,6 +27,7 @@ class GameLogic extends SinglePlayer{
     }
 
     static void checkVictory(){
+        //checkWordList(words);
         if (checkWord()==1){
             System.out.println("Zwycięstwo");
             checkLetter();
@@ -237,6 +239,7 @@ class GameLogic extends SinglePlayer{
                 s3 = wordsPanel1textField3.getText();
                 s4 = wordsPanel1textField4.getText();
                 s5 = wordsPanel1textField5.getText();
+
                 if (Objects.equals(s1, wordLetter1)||Objects.equals(s1, "0")) {
                     wordsPanel1textField1.setBackground(Color.GREEN);
                     wordLetter1 = "0";
@@ -247,6 +250,7 @@ class GameLogic extends SinglePlayer{
                         wordsPanel1textField1.setBackground(Color.GRAY);
                     }
                 }
+
                 if (Objects.equals(s2, wordLetter2)||Objects.equals(s2, "0")) {
                     wordsPanel1textField2.setBackground(Color.GREEN);
                     wordLetter2 = "0";
@@ -257,6 +261,7 @@ class GameLogic extends SinglePlayer{
                         wordsPanel1textField2.setBackground(Color.GRAY);
                     }
                 }
+
                 if (Objects.equals(s3, wordLetter3)||Objects.equals(s3, "0")) {
                     wordsPanel1textField3.setBackground(Color.GREEN);
                     wordLetter3 = "0";
@@ -267,6 +272,7 @@ class GameLogic extends SinglePlayer{
                         wordsPanel1textField3.setBackground(Color.GRAY);
                     }
                 }
+
                 if (Objects.equals(s4, wordLetter4)||Objects.equals(s4, "0")) {
                     wordsPanel1textField4.setBackground(Color.GREEN);
                     wordLetter4 = "0";
@@ -277,6 +283,7 @@ class GameLogic extends SinglePlayer{
                         wordsPanel1textField4.setBackground(Color.GRAY);
                     }
                 }
+
                 if (Objects.equals(s5, wordLetter5)||Objects.equals(s5, "0")) {
                     wordsPanel1textField5.setBackground(Color.GREEN);
                     wordLetter5 = "0";
@@ -575,6 +582,67 @@ class GameLogic extends SinglePlayer{
             }
         }
 
+    }
+    static void checkWordList(ArrayList words){
+        switch(rowNumber) {
+            case 1:
+                s1 = wordsPanel1textField1.getText();
+                s2 = wordsPanel1textField2.getText();
+                s3 = wordsPanel1textField3.getText();
+                s4 = wordsPanel1textField4.getText();
+                s5 = wordsPanel1textField5.getText();
+                all = s1+s2+s3+s4+s5;
+                for (int i=0;i<words.size();i++){
+                    if (all != words.get(i)){
+                        resultTextField.setVisible(true);
+                        resultTextField.setText("Word not in a word list");
+                    }
+                }
+                break;
+            case 2:
+                s1 = wordsPanel2textField1.getText();
+                s2 = wordsPanel2textField2.getText();
+                s3 = wordsPanel2textField3.getText();
+                s4 = wordsPanel2textField4.getText();
+                s5 = wordsPanel2textField5.getText();
+                all = s1+s2+s3+s4+s5;
+
+                break;
+            case 3:
+                s1 = wordsPanel3textField1.getText();
+                s2 = wordsPanel3textField2.getText();
+                s3 = wordsPanel3textField3.getText();
+                s4 = wordsPanel3textField4.getText();
+                s5 = wordsPanel3textField5.getText();
+                all = s1+s2+s3+s4+s5;
+
+                break;
+            case 4:
+                s1 = wordsPanel4textField1.getText();
+                s2 = wordsPanel4textField2.getText();
+                s3 = wordsPanel4textField3.getText();
+                s4 = wordsPanel4textField4.getText();
+                s5 = wordsPanel4textField5.getText();
+                all = s1+s2+s3+s4+s5;
+
+                break;
+            case 5:
+                s1 = wordsPanel5textField1.getText();
+                s2 = wordsPanel5textField2.getText();
+                s3 = wordsPanel5textField3.getText();
+                s4 = wordsPanel5textField4.getText();
+                s5 = wordsPanel5textField5.getText();
+                all = s1+s2+s3+s4+s5;
+
+                break;
+            default:
+                s1 = wordsPanel6textField1.getText();
+                s2 = wordsPanel6textField2.getText();
+                s3 = wordsPanel6textField3.getText();
+                s4 = wordsPanel6textField4.getText();
+                s5 = wordsPanel6textField5.getText();
+                all = s1+s2+s3+s4+s5;
+            }
     }
 
 }

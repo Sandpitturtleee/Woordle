@@ -1,12 +1,7 @@
 package com.company;
 
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 
 public class Main {
@@ -15,7 +10,7 @@ public class Main {
         MainMenu mainMenu = new MainMenu();
 
         //SinglePlayer singlePlayer = new SinglePlayer();
-        MultiPlayer multiPlayer = new MultiPlayer();
+        AskForWord multiPlayer = new AskForWord();
         Rules rules = new Rules();
 
     }

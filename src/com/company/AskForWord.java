@@ -4,50 +4,39 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-import static com.company.GameLogicSingle.*;
-
-public class SinglePlayer {
-    static JFrame singlePlayerFrame;
-    JLabel singlePlayerTitle;
-    JButton returnButton,newWordButton;
+public class AskForWord {
+    static JFrame askForWordFrame;
+    JLabel askForWordTitle, askForWordText;
+    static JTextField resultTextField;
+    JButton returnButton;
+    Font fontResults = new Font("SansSerif",Font.BOLD, 33);
+    static JTextField wordsPanel1textField1,wordsPanel1textField2,wordsPanel1textField3,wordsPanel1textField4,wordsPanel1textField5;
     JButton qButton,wButton,eButton,rButton,tButton,yButton,uButton,iButton,oButton,pButton;
     JButton aButton,sButton,dButton,fButton,gButton,hButton,jButton,kButton,lButton;
     JButton deleteButton,zButton,xButton,cButton,vButton,bButton,nButton,mButton,enterButton;
-    static JTextField wordsPanel1textField1,wordsPanel1textField2,wordsPanel1textField3,wordsPanel1textField4,wordsPanel1textField5;
-    static JTextField wordsPanel2textField1,wordsPanel2textField2,wordsPanel2textField3,wordsPanel2textField4,wordsPanel2textField5;
-    static JTextField wordsPanel3textField1,wordsPanel3textField2,wordsPanel3textField3,wordsPanel3textField4,wordsPanel3textField5;
-    static JTextField wordsPanel4textField1,wordsPanel4textField2,wordsPanel4textField3,wordsPanel4textField4,wordsPanel4textField5;
-    static JTextField wordsPanel5textField1,wordsPanel5textField2,wordsPanel5textField3,wordsPanel5textField4,wordsPanel5textField5;
-    static JTextField wordsPanel6textField1,wordsPanel6textField2,wordsPanel6textField3,wordsPanel6textField4,wordsPanel6textField5;
-    static JTextField resultTextField;
-    Font fontResults = new Font("SansSerif",Font.BOLD, 33);
     static int rowNumber = 1;
     static int colNumber = 1;
     static String word;
     static String wordLetter1, wordLetter2, wordLetter3, wordLetter4, wordLetter5;
+    AskForWord(){
+        askForWordFrame = new JFrame("Wordle");
+        askForWordFrame.setSize(960, 800);
 
-    SinglePlayer(){
+        askForWordTitle = new JLabel("Wordle");
+        askForWordTitle.setBounds(400, 30, 400, 60);
+        askForWordTitle.setFont(new Font("Serif", Font.PLAIN, 40));
 
-        word = readFile();
-        //word = "CIRCA";
-        wordLetter1 = word.substring(0,1);
-        wordLetter2 = word.substring(1,2);
-        wordLetter3 = word.substring(2,3);
-        wordLetter4 = word.substring(3,4);
-        wordLetter5 = word.substring(4,5);
-        System.out.println(word);
-
-        singlePlayerFrame = new JFrame("Wordle");
-        singlePlayerFrame.setSize(960, 800);
-
-        singlePlayerTitle = new JLabel("Wordle");
-        singlePlayerTitle.setBounds(425, 30, 400, 60);
-        singlePlayerTitle.setFont(new Font("Serif", Font.PLAIN, 40));
+        askForWordText = new JLabel("Five letter word for an opponent to quess: ");
+        askForWordText.setBounds(320, 200, 400, 60);
+        askForWordText.setFont(new Font("Serif", Font.PLAIN, 20));
 
         JPanel wordsPanels = new JPanel();
-        wordsPanels.setLayout(new GridLayout(6,1,10,10));
-        wordsPanels.setBounds(244,100,472,400);
+        wordsPanels.setLayout(new GridLayout(1,1,10,10));
+        wordsPanels.setBounds(244,300,472,70);
 
         JPanel wordsPanel1 = new JPanel();
 
@@ -82,180 +71,10 @@ public class SinglePlayer {
         wordsPanel1.add(wordsPanel1textField4);
         wordsPanel1.add(wordsPanel1textField5);
 
-        JPanel wordsPanel2 = new JPanel();
-
-        wordsPanel2textField1 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel2textField1.setHorizontalAlignment(JTextField.CENTER);
-        wordsPanel2textField1.setEditable(false);
-        wordsPanel2textField1.setFont(fontResults);
-
-        wordsPanel2textField2 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel2textField2.setHorizontalAlignment(JTextField.CENTER);
-        wordsPanel2textField2.setFont(fontResults);
-        wordsPanel2textField2.setEditable(false);
-
-        wordsPanel2textField3 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel2textField3.setHorizontalAlignment(JTextField.CENTER);
-        wordsPanel2textField3.setFont(fontResults);
-        wordsPanel2textField3.setEditable(false);
-
-        wordsPanel2textField4 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel2textField4.setHorizontalAlignment(JTextField.CENTER);
-        wordsPanel2textField4.setFont(fontResults);
-        wordsPanel2textField4.setEditable(false);
-
-        wordsPanel2textField5 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel2textField5.setHorizontalAlignment(JTextField.CENTER);
-        wordsPanel2textField5.setFont(fontResults);
-        wordsPanel2textField5.setEditable(false);
-
-        wordsPanel2.add(wordsPanel2textField1);
-        wordsPanel2.add(wordsPanel2textField2);
-        wordsPanel2.add(wordsPanel2textField3);
-        wordsPanel2.add(wordsPanel2textField4);
-        wordsPanel2.add(wordsPanel2textField5);
-
-        JPanel wordsPanel3 = new JPanel();
-
-        wordsPanel3textField1 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel3textField1.setHorizontalAlignment(JTextField.CENTER);
-        wordsPanel3textField1.setEditable(false);
-        wordsPanel3textField1.setFont(fontResults);
-
-        wordsPanel3textField2 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel3textField2.setHorizontalAlignment(JTextField.CENTER);
-        wordsPanel3textField2.setFont(fontResults);
-        wordsPanel3textField2.setEditable(false);
-
-        wordsPanel3textField3 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel3textField3.setHorizontalAlignment(JTextField.CENTER);
-        wordsPanel3textField3.setFont(fontResults);
-        wordsPanel3textField3.setEditable(false);
-
-        wordsPanel3textField4 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel3textField4.setHorizontalAlignment(JTextField.CENTER);
-        wordsPanel3textField4.setFont(fontResults);
-        wordsPanel3textField4.setEditable(false);
-
-        wordsPanel3textField5 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel3textField5.setHorizontalAlignment(JTextField.CENTER);
-        wordsPanel3textField5.setFont(fontResults);
-        wordsPanel3textField5.setEditable(false);
-
-        wordsPanel3.add(wordsPanel3textField1);
-        wordsPanel3.add(wordsPanel3textField2);
-        wordsPanel3.add(wordsPanel3textField3);
-        wordsPanel3.add(wordsPanel3textField4);
-        wordsPanel3.add(wordsPanel3textField5);
-
-        JPanel wordsPanel4 = new JPanel();
-
-        wordsPanel4textField1 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel4textField1.setHorizontalAlignment(JTextField.CENTER);
-        wordsPanel4textField1.setEditable(false);
-        wordsPanel4textField1.setFont(fontResults);
-
-        wordsPanel4textField2 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel4textField2.setHorizontalAlignment(JTextField.CENTER);
-        wordsPanel4textField2.setFont(fontResults);
-        wordsPanel4textField2.setEditable(false);
-
-        wordsPanel4textField3 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel4textField3.setHorizontalAlignment(JTextField.CENTER);
-        wordsPanel4textField3.setFont(fontResults);
-        wordsPanel4textField3.setEditable(false);
-
-        wordsPanel4textField4 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel4textField4.setHorizontalAlignment(JTextField.CENTER);
-        wordsPanel4textField4.setFont(fontResults);
-        wordsPanel4textField4.setEditable(false);
-
-        wordsPanel4textField5 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel4textField5.setHorizontalAlignment(JTextField.CENTER);
-        wordsPanel4textField5.setFont(fontResults);
-        wordsPanel4textField5.setEditable(false);
-
-        wordsPanel4.add(wordsPanel4textField1);
-        wordsPanel4.add(wordsPanel4textField2);
-        wordsPanel4.add(wordsPanel4textField3);
-        wordsPanel4.add(wordsPanel4textField4);
-        wordsPanel4.add(wordsPanel4textField5);
-
-        JPanel wordsPanel5 = new JPanel();
-
-        wordsPanel5textField1 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel5textField1.setHorizontalAlignment(JTextField.CENTER);
-        wordsPanel5textField1.setEditable(false);
-        wordsPanel5textField1.setFont(fontResults);
-
-        wordsPanel5textField2 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel5textField2.setHorizontalAlignment(JTextField.CENTER);
-        wordsPanel5textField2.setFont(fontResults);
-        wordsPanel5textField2.setEditable(false);
-
-        wordsPanel5textField3 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel5textField3.setHorizontalAlignment(JTextField.CENTER);
-        wordsPanel5textField3.setFont(fontResults);
-        wordsPanel5textField3.setEditable(false);
-
-        wordsPanel5textField4 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel5textField4.setHorizontalAlignment(JTextField.CENTER);
-        wordsPanel5textField4.setFont(fontResults);
-        wordsPanel5textField4.setEditable(false);
-
-        wordsPanel5textField5 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel5textField5.setHorizontalAlignment(JTextField.CENTER);
-        wordsPanel5textField5.setFont(fontResults);
-        wordsPanel5textField5.setEditable(false);
-
-        wordsPanel5.add(wordsPanel5textField1);
-        wordsPanel5.add(wordsPanel5textField2);
-        wordsPanel5.add(wordsPanel5textField3);
-        wordsPanel5.add(wordsPanel5textField4);
-        wordsPanel5.add(wordsPanel5textField5);
-
-        JPanel wordsPanel6 = new JPanel();
-
-        wordsPanel6textField1 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel6textField1.setHorizontalAlignment(JTextField.CENTER);
-        wordsPanel6textField1.setEditable(false);
-        wordsPanel6textField1.setFont(fontResults);
-
-        wordsPanel6textField2 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel6textField2.setHorizontalAlignment(JTextField.CENTER);
-        wordsPanel6textField2.setFont(fontResults);
-        wordsPanel6textField2.setEditable(false);
-
-        wordsPanel6textField3 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel6textField3.setHorizontalAlignment(JTextField.CENTER);
-        wordsPanel6textField3.setFont(fontResults);
-        wordsPanel6textField3.setEditable(false);
-
-        wordsPanel6textField4 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel6textField4.setHorizontalAlignment(JTextField.CENTER);
-        wordsPanel6textField4.setFont(fontResults);
-        wordsPanel6textField4.setEditable(false);
-
-        wordsPanel6textField5 = new JTextField(1); // accepts upto 10 characters
-        wordsPanel6textField5.setHorizontalAlignment(JTextField.CENTER);
-        wordsPanel6textField5.setFont(fontResults);
-        wordsPanel6textField5.setEditable(false);
-
-        wordsPanel6.add(wordsPanel6textField1);
-        wordsPanel6.add(wordsPanel6textField2);
-        wordsPanel6.add(wordsPanel6textField3);
-        wordsPanel6.add(wordsPanel6textField4);
-        wordsPanel6.add(wordsPanel6textField5);
-
         wordsPanels.add(wordsPanel1);
-        wordsPanels.add(wordsPanel2);
-        wordsPanels.add(wordsPanel3);
-        wordsPanels.add(wordsPanel4);
-        wordsPanels.add(wordsPanel5);
-        wordsPanels.add(wordsPanel6);
 
         resultTextField = new JTextField("Test");
-        resultTextField.setBounds(280, 530, 400, 60);
+        resultTextField.setBounds(280, 400, 400, 60);
         resultTextField.setFont(new Font("Serif", Font.PLAIN, 40));
         resultTextField.setHorizontalAlignment(JTextField.CENTER);
         resultTextField.setEditable(false);
@@ -263,7 +82,7 @@ public class SinglePlayer {
 
         JPanel keyboardPanel = new JPanel();
         keyboardPanel.setLayout(new GridLayout(3,1,10,10));
-        keyboardPanel.setBounds(175,630,600,100);
+        keyboardPanel.setBounds(175,500,600,100);
 
         JPanel keyboardPanel1 = new JPanel();
         keyboardPanel1.setLayout(new GridLayout(1,10,10,10));
@@ -553,7 +372,7 @@ public class SinglePlayer {
         enterButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                checkVictory();
+                sendWord();
             }
         });
 
@@ -591,50 +410,93 @@ public class SinglePlayer {
         keyboardPanel.add(keyboardPanel3);
 
         returnButton = new JButton("Return");
-        returnButton.setBounds(25, 650, 100, 80);
+        returnButton.setBounds(360, 650, 200, 80);
+
 
         returnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                singlePlayerFrame.setVisible(false);
+                askForWordFrame.setVisible(false);
                 MainMenu.MainMenuFrameSetVisibleTrue();
-                singlePlayerFrame.dispose();
-                rowNumber =1;
-                colNumber =1;
-            }
-        });
-        newWordButton = new JButton("New word");
-        newWordButton.setBounds(820, 650, 100, 80);
-
-        newWordButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                singlePlayerFrame.dispose();
-                SinglePlayer singlePlayer = new SinglePlayer();
-                singlePlayerFrame.setVisible(true);
-                colNumber =1;
-                rowNumber =1;
+                colNumber = 1;
             }
         });
 
-        singlePlayerFrame.add(singlePlayerTitle);
-        singlePlayerFrame.add(wordsPanels);
-        singlePlayerFrame.add(resultTextField);
-        singlePlayerFrame.add(keyboardPanel);
-        singlePlayerFrame.add(returnButton);
-        singlePlayerFrame.add(newWordButton);
+        askForWordFrame.add(askForWordTitle);
+        askForWordFrame.add(askForWordText);
+        askForWordFrame.add(wordsPanels);
+        askForWordFrame.add(resultTextField);
+        askForWordFrame.add(keyboardPanel);
+        askForWordFrame.add(returnButton);
 
-        singlePlayerFrame.setLayout(null);
-        singlePlayerFrame.setLocationRelativeTo(null);
-        singlePlayerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        singlePlayerFrame.setResizable(false);
-        singlePlayerFrame.setVisible(false);
+        askForWordFrame.setLayout(null);
+        askForWordFrame.setLocationRelativeTo(null);
+        askForWordFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        askForWordFrame.setResizable(false);
+        askForWordFrame.setVisible(false);
     };
+    static void addLetter(String letter) {
+            resultTextField.setVisible(false);
+                switch (colNumber) {
+                    case 1:
+                        wordsPanel1textField1.setText(letter);
+                        break;
+                    case 2:
+                        wordsPanel1textField2.setText(letter);
+                        break;
+                    case 3:
+                        wordsPanel1textField3.setText(letter);
+                        break;
+                    case 4:
+                        wordsPanel1textField4.setText(letter);
+                        break;
+                    default:
+                        wordsPanel1textField5.setText(letter);
+                }
+    }
+    static void sendWord(){
+        String s1,s2,s3,s4,s5,all;
+        s1 = wordsPanel1textField1.getText();
+        s2 = wordsPanel1textField2.getText();
+        s3 = wordsPanel1textField3.getText();
+        s4 = wordsPanel1textField4.getText();
+        s5 = wordsPanel1textField5.getText();
+        all = s1+s2+s3+s4+s5;
+        if (all.length()==5){
+            System.out.println(all);
+            try {
+                DBConnector conne = new DBConnector();
+                Connection conn = conne.connect();
+                Statement st = conn.createStatement();
+                String sql = "TRUNCATE word";
+                // Execute deletion
+                st.executeUpdate(sql);
+                // Use DELETE
+                sql = "DELETE FROM word";
+                // Execute deletion
+                st.executeUpdate(sql);
+                String insert="insert into word values('"+all+"')";
+                st.executeUpdate(insert);
+                st.close();
+            } catch (SQLException ex) {
+
+            }
+            askForWordFrame.setVisible(false);
+            MultiPlayer multiPlayer = new MultiPlayer();
+            MultiPlayer.FrameSetVisibleTrue();
+        }
+        else{
+            resultTextField.setVisible(true);
+            resultTextField.setText("Type in 5 letter word");
+        }
+
+
+
+    }
     public static void FrameSetVisibleTrue(){
-        singlePlayerFrame.setVisible(true);
+        askForWordFrame.setVisible(true);
     }
     public static void FrameSetVisibleFalse(){
-        singlePlayerFrame.setVisible(false);
+        askForWordFrame.setVisible(false);
     }
-
 }

@@ -38,7 +38,8 @@ public class MainMenu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainMenuFrame.setVisible(false);
-                MultiPlayer.FrameSetVisibleTrue();
+                AskForWord askForWord = new AskForWord();
+                AskForWord.FrameSetVisibleTrue();
             }
         });
         rules.addActionListener(new ActionListener() {

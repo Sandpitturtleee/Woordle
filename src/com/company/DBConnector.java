@@ -9,7 +9,7 @@ import java.sql.SQLException;
  * @author Quinny
  */
 public class DBConnector {
-     private static final String URL = "jdbc:postgresql://localhost/kino";
+    private static final String URL = "jdbc:postgresql://localhost/woordle";
     private static final String USER = "postgres";
     private static final String PASSWD = "root";
     
@@ -23,7 +23,6 @@ public class DBConnector {
         }
             try
             {
-               
                connection = DriverManager.getConnection(URL,USER,PASSWD);
                //System.out.println("yes");
             }

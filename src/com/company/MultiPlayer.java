@@ -31,13 +31,12 @@ public class MultiPlayer {
     MultiPlayer(){
 
         word = getWord();
-        //word = "CIRCA";
         wordLetter1 = word.substring(0,1);
         wordLetter2 = word.substring(1,2);
         wordLetter3 = word.substring(2,3);
         wordLetter4 = word.substring(3,4);
         wordLetter5 = word.substring(4,5);
-        System.out.println(word);
+        //System.out.println(word);
 
         multiPlayerFrame = new JFrame("Wordle");
         multiPlayerFrame.setSize(960, 800);

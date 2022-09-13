@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -20,6 +21,8 @@ public class AskForWord {
     JButton deleteButton,zButton,xButton,cButton,vButton,bButton,nButton,mButton,enterButton;
     static int rowNumber = 1;
     static int colNumber = 1;
+    static int score1;
+    static int score2;
     static String word;
     static String wordLetter1, wordLetter2, wordLetter3, wordLetter4, wordLetter5;
     AskForWord(){
@@ -463,7 +466,6 @@ public class AskForWord {
         s5 = wordsPanel1textField5.getText();
         all = s1+s2+s3+s4+s5;
         if (all.length()==5){
-            System.out.println(all);
             try {
                 DBConnector conne = new DBConnector();
                 Connection conn = conne.connect();
@@ -484,6 +486,7 @@ public class AskForWord {
             askForWordFrame.setVisible(false);
             MultiPlayer multiPlayer = new MultiPlayer();
             MultiPlayer.FrameSetVisibleTrue();
+            colNumber = 1;
         }
         else{
             resultTextField.setVisible(true);

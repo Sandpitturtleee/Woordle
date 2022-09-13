@@ -5,11 +5,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static com.company.AskForWord.askForWordFrame;
 import static com.company.GameLogicMulti.*;
 
 public class MultiPlayer {
-    static JFrame singlePlayerFrame;
-    JLabel singlePlayerTitle;
+    static JFrame multiPlayerFrame;
+    JLabel multiPlayerTitle;
     JButton returnButton,newWordButton;
     JButton qButton,wButton,eButton,rButton,tButton,yButton,uButton,iButton,oButton,pButton;
     JButton aButton,sButton,dButton,fButton,gButton,hButton,jButton,kButton,lButton;
@@ -29,7 +30,7 @@ public class MultiPlayer {
 
     MultiPlayer(){
 
-        word = readFile();
+        word = getWord();
         //word = "CIRCA";
         wordLetter1 = word.substring(0,1);
         wordLetter2 = word.substring(1,2);
@@ -38,12 +39,12 @@ public class MultiPlayer {
         wordLetter5 = word.substring(4,5);
         System.out.println(word);
 
-        singlePlayerFrame = new JFrame("Wordle");
-        singlePlayerFrame.setSize(960, 800);
+        multiPlayerFrame = new JFrame("Wordle");
+        multiPlayerFrame.setSize(960, 800);
 
-        singlePlayerTitle = new JLabel("Wordleeee");
-        singlePlayerTitle.setBounds(425, 30, 400, 60);
-        singlePlayerTitle.setFont(new Font("Serif", Font.PLAIN, 40));
+        multiPlayerTitle = new JLabel("Wordleeee");
+        multiPlayerTitle.setBounds(425, 30, 400, 60);
+        multiPlayerTitle.setFont(new Font("Serif", Font.PLAIN, 40));
 
         JPanel wordsPanels = new JPanel();
         wordsPanels.setLayout(new GridLayout(6,1,10,10));
@@ -596,9 +597,9 @@ public class MultiPlayer {
         returnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                singlePlayerFrame.setVisible(false);
+                multiPlayerFrame.setVisible(false);
                 MainMenu.MainMenuFrameSetVisibleTrue();
-                singlePlayerFrame.dispose();
+                multiPlayerFrame.dispose();
                 rowNumber =1;
                 colNumber =1;
             }
@@ -609,32 +610,32 @@ public class MultiPlayer {
         newWordButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                singlePlayerFrame.dispose();
-                SinglePlayer singlePlayer = new SinglePlayer();
-                singlePlayerFrame.setVisible(true);
+                multiPlayerFrame.dispose();
+                AskForWord askForWord = new AskForWord();
+                askForWordFrame.setVisible(true);
                 colNumber =1;
                 rowNumber =1;
             }
         });
 
-        singlePlayerFrame.add(singlePlayerTitle);
-        singlePlayerFrame.add(wordsPanels);
-        singlePlayerFrame.add(resultTextField);
-        singlePlayerFrame.add(keyboardPanel);
-        singlePlayerFrame.add(returnButton);
-        singlePlayerFrame.add(newWordButton);
+        multiPlayerFrame.add(multiPlayerTitle);
+        multiPlayerFrame.add(wordsPanels);
+        multiPlayerFrame.add(resultTextField);
+        multiPlayerFrame.add(keyboardPanel);
+        multiPlayerFrame.add(returnButton);
+        multiPlayerFrame.add(newWordButton);
 
-        singlePlayerFrame.setLayout(null);
-        singlePlayerFrame.setLocationRelativeTo(null);
-        singlePlayerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        singlePlayerFrame.setResizable(false);
-        singlePlayerFrame.setVisible(false);
+        multiPlayerFrame.setLayout(null);
+        multiPlayerFrame.setLocationRelativeTo(null);
+        multiPlayerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        multiPlayerFrame.setResizable(false);
+        multiPlayerFrame.setVisible(false);
     };
     public static void FrameSetVisibleTrue(){
-        singlePlayerFrame.setVisible(true);
+        multiPlayerFrame.setVisible(true);
     }
     public static void FrameSetVisibleFalse(){
-        singlePlayerFrame.setVisible(false);
+        multiPlayerFrame.setVisible(false);
     }
 
 }

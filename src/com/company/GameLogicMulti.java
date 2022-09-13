@@ -4,28 +4,36 @@ package com.company;
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
 class GameLogicMulti extends MultiPlayer {
     static String s1,s2,s3,s4,s5,all;
+    static int score1;
+    static int score2;
     static ArrayList<String> words = new ArrayList<>();
-    static String readFile(){
-
-
-        try (Scanner s = new Scanner(new FileReader("resources/words.txt"))) {
-            while (s.hasNext()) {
-                words.add(s.nextLine());
+    static String getWord(){
+        try {
+            DBConnector conne = new DBConnector();
+            Connection conn = conne.connect();
+            Statement st = conn.createStatement();
+            String sql1 = "Select * from word";
+            ResultSet result  = st.executeQuery(sql1);
+            while(result.next()){
+                word = result.getString("word");
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            st.close();
+
+        } catch (SQLException ex) {
+
         }
-        int index = (int)(Math.random() * words.size());
-        String word = words.get(index);
         return word;
     }
-
     static void checkVictory(){
         //checkWordList(words);
         if (checkWord()==1){

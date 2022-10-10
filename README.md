@@ -1,7 +1,8 @@
 # Woordle
 Java applications imitating popular web based game Woordle. 
 - In single player mode word is generated randomly from a list of words from a txt file. Then player has to guess a word.
-- In multiplayer mode you can type a word using on screen keyboard then a second player can guess a word just like in a single player mode.
+- In multiplayer mode you can type a word using on screen keyboard then a second player can guess a word just like in a single player mode. Word is saved and shared with the player using connection with Postgresql databese.
+
 - For now only 5 letters words are available due to limitations in code implementation.
 # To do
 - Improve woordle checking algorithm
